@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leesobsessie</title>
+<meta name="description" content="Het archief van leesclub Leesobsessie: alle gelezen boeken en het boek dat nu wordt gelezen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FAFAFC;
+    --surface: #FFFFFF;
+    --text: #241F3D;
+    --text-dim: #6E6A85;
+    --pink: #FF5D8F;
+    --pink-deep: #E0316B;
+    --teal: #00BFA6;
+    --teal-deep: #00967F;
+    --yellow: #FFC145;
+    --yellow-deep: #B9860A;
+    --purple: #7C6FF0;
+    --purple-deep: #5B4FD6;
+    --blue: #4D8AF0;
+    --pink-soft: #FFE1EC;
+    --teal-soft: #D8F7F1;
+    --yellow-soft: #FFF3D6;
+    --purple-soft: #EAE7FF;
+    --blue-soft: #E3EEFF;
+    --grey-soft: #F1F1F4;
+    --border: rgba(36,31,61,0.09);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before{
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: -1;
+    background:
+      radial-gradient(45% 40% at 12% 8%, rgba(255,93,143,0.22), transparent 70%),
+      radial-gradient(40% 38% at 88% 12%, rgba(124,111,240,0.22), transparent 70%),
+      radial-gradient(45% 45% at 85% 85%, rgba(0,191,166,0.18), transparent 70%),
+      radial-gradient(35% 35% at 10% 90%, rgba(255,193,69,0.16), transparent 70%);
+    filter: blur(10px);
+    animation: aurora 22s ease-in-out infinite alternate;
+  }
+  @keyframes aurora{
+    0%{ transform: translate(0,0) scale(1); }
+    50%{ transform: translate(2.5%,-2%) scale(1.06) rotate(1.5deg); }
+    100%{ transform: translate(-2%,2%) scale(1.02) rotate(-1deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  a { color: inherit; }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Header ---------- */
+  header.site{
+    padding: 48px 0 24px;
+  }
+  header.site{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 18px 0;
+    background: rgba(250,250,252,0.72);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border-bottom: 1px solid var(--border);
+  }
+  header.site .wrap{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .brand h1{
+    font-family: 'Fredoka', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 2.7rem);
+    margin: 0;
+    letter-spacing: -0.01em;
+    background: linear-gradient(95deg, var(--pink), var(--purple) 55%, var(--blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .brand p{
+    display: inline-block;
+    margin: 8px 0 0;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--purple-deep);
+    background: var(--purple-soft);
+    padding: 5px 14px;
+    border-radius: 999px;
+  }
+  nav.site-nav{
+    display:flex;
+    gap: 8px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  nav.site-nav a{
+    text-decoration: none;
+    color: var(--text-dim);
+    padding: 9px 16px;
+    border-radius: 999px;
+    transition: background 0.18s, color 0.18s;
+  }
+  nav.site-nav a:hover, nav.site-nav a:focus-visible{
+    color: var(--pink-deep);
+    background: var(--pink-soft);
+  }
+
+  /* ---------- Hero ---------- */
+  section.hero{
+    padding: 32px 0 40px;
+    scroll-margin-top: 90px;
+  }
+  section#archief{ scroll-margin-top: 90px; }
+  .hero-label{
+    display: inline-block;
+    font-family: 'Fredoka', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #fff;
+    background: linear-gradient(100deg, var(--pink), var(--purple));
+    background-size: 150% 150%;
+    animation: shimmer 5s ease infinite;
+    padding: 7px 18px;
+    border-radius: 999px;
+    margin: 0 0 18px;
+    box-shadow: 0 8px 20px rgba(224,49,107,0.35);
+  }
+  @keyframes shimmer{
+    0%,100%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+  }
+
+  .card{
+    background:
+      linear-gradient(var(--surface), var(--surface)) padding-box,
+      linear-gradient(130deg, var(--pink), var(--purple) 45%, var(--teal)) border-box;
+    border: 3px solid transparent;
+    color: var(--text);
+    border-radius: 28px;
+    padding: 32px 32px 30px;
+    box-shadow: 0 25px 60px -20px rgba(124,111,240,0.45), 0 0 0 6px rgba(255,93,143,0.06);
+    position: relative;
+    transform: rotate(-0.8deg);
+    opacity: 0;
+    animation: cardIn 0.6s cubic-bezier(.2,.7,.3,1) 0.1s forwards;
+    transition: transform 0.25s cubic-bezier(.2,.7,.3,1), box-shadow 0.25s;
+  }
+  .card:hover{
+    transform: rotate(-0.4deg) translateY(-3px);
+    box-shadow: 0 34px 70px -20px rgba(124,111,240,0.55), 0 0 0 10px rgba(124,111,240,0.07);
+  }
+  @keyframes cardIn{
+    from{ opacity: 0; transform: rotate(-2.5deg) translateY(14px) scale(0.98); }
+    to{ opacity: 1; transform: rotate(-0.8deg) translateY(0) scale(1); }
+  }
+
+  .card-heading{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .card h2{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 4.2vw, 2.2rem);
+    margin: 0 0 6px;
+    line-height: 1.15;
+    color: var(--text);
+  }
+  .card .by{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  .cover-wrap{
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .card-cover{
+    width: 100px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 14px 26px -10px rgba(36,31,61,0.35);
+    transform: rotate(3deg);
+    display: block;
+  }
+  .cover-badge{
+    position: absolute;
+    top: -10px;
+    left: -14px;
+    background: var(--pink);
+    color: #fff;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.68rem;
+    padding: 5px 11px;
+    border-radius: 999px;
+    transform: rotate(-8deg);
+    box-shadow: 0 6px 14px rgba(255,93,143,0.45);
+    white-space: nowrap;
+  }
+
+  .card-chips{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 24px 0 0;
+    padding: 0;
+  }
+  .card-chips li{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 9px 16px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    transition: transform 0.18s cubic-bezier(.2,.7,.3,1), box-shadow 0.18s;
+  }
+  .card-chips li:hover{
+    transform: translateY(-2px) rotate(-0.6deg);
+    box-shadow: 0 8px 18px rgba(36,31,61,0.10);
+  }
+  .card-chips .chip-label{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.66rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+  .card-chips .chip-value{
+    font-weight: 600;
+  }
+  .chip-date{ background: var(--pink-soft); color: var(--pink-deep); }
+  .chip-countdown{ background: var(--blue-soft); color: #2C5FC7; }
+  .chip-location{ background: var(--teal-soft); color: var(--teal-deep); }
+  .chip-host{ background: var(--purple-soft); color: var(--purple-deep); }
+  .chip-status{ background: var(--yellow-soft); color: var(--yellow-deep); }
+
+  .upcoming{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 12px;
+    margin-top: 22px;
+    padding: 0 4px;
+  }
+  .upcoming-label{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+  .upcoming-item{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(100deg, var(--yellow-soft), var(--pink-soft));
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    box-shadow: 0 4px 12px rgba(36,31,61,0.05);
+    transition: transform 0.18s;
+  }
+  .upcoming-item:hover{ transform: translateY(-2px); }
+
+  /* ---------- Intro ---------- */
+  section.intro{
+    padding: 8px 0 52px;
+  }
+  section.intro p{
+    max-width: 62ch;
+    color: var(--text-dim);
+    font-size: 1.05rem;
+  }
+  section.intro strong{
+    color: var(--text);
+    font-weight: 700;
+    background: var(--yellow-soft);
+    padding: 2px 8px;
+    border-radius: 8px;
+  }
+
+  /* ---------- Archive ---------- */
+  section.archive{
+    padding: 12px 0 90px;
+  }
+  .archive-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    margin-bottom: 6px;
+  }
+  .archive-head h3{
+    font-family: 'Fredoka', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin: 0;
+    color: var(--text);
+    background: linear-gradient(95deg, var(--purple-deep), var(--pink-deep));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .archive-stats{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: var(--purple-deep);
+    background: var(--purple-soft);
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+
+  .controls{
+    display:flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 22px 0 30px;
+  }
+  .controls input[type="search"]{
+    flex: 1 1 220px;
+    min-width: 160px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 14px rgba(36,31,61,0.05);
+  }
+  .controls input[type="search"]::placeholder{ color: #A6A2B8; }
+  .controls input[type="search"]:focus-visible{
+    outline: none;
+    border-color: var(--pink);
+    box-shadow: 0 0 0 3px var(--pink-soft);
+  }
+  .sort-group{
+    display:flex;
+    gap: 4px;
+    background: var(--grey-soft);
+    padding: 4px;
+    border-radius: 999px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .sort-btn{
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 9px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+  }
+  .sort-btn:hover{ color: var(--text); }
+  .sort-btn[aria-pressed="true"]{
+    background: linear-gradient(100deg, var(--pink), var(--purple));
+    background-size: 140% 140%;
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(124,111,240,0.35);
+  }
+  .sort-btn:focus-visible{ outline: 2px solid var(--purple); outline-offset: 2px; }
+
+  .decade-label{
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 18px;
+    border-radius: 999px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    margin: 28px 0 12px;
+    background: var(--grey-soft);
+    color: var(--text-dim);
+  }
+  .decade-label.decade-1990s{ background: var(--purple-soft); color: var(--purple-deep); }
+  .decade-label.decade-2000s{ background: var(--blue-soft); color: #2C5FC7; }
+  .decade-label.decade-2010s{ background: var(--teal-soft); color: var(--teal-deep); }
+  .decade-label.decade-2020s{ background: var(--pink-soft); color: var(--pink-deep); }
+  .decade-label.decade-onbekend{ background: var(--grey-soft); color: #8A8698; }
+
+  .book-row{
+    display:grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 4px 18px;
+    align-items: center;
+    padding: 12px 14px;
+    border-radius: 14px;
+    transition: background 0.15s;
+  }
+  .book-row:hover{ background: var(--grey-soft); }
+  .book-row:hover .book-title{
+    background: linear-gradient(95deg, var(--pink-deep), var(--purple-deep));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .book-row{ border: 1px solid transparent; }
+  .book-row:hover{ border-color: var(--border); box-shadow: 0 6px 16px rgba(36,31,61,0.07); }
+  .book-date{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--purple-deep);
+  }
+  .book-date-dm, .book-date-y{ display: block; line-height: 1.25; }
+  .book-date-y{ font-weight: 500; opacity: 0.7; }
+  .book-title-wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .book-title{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text);
+  }
+  .book-summary{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+  .book-author{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    text-align: right;
+    white-space: nowrap;
+  }
+  @media (max-width: 560px){
+    .book-row{ grid-template-columns: 1fr; gap: 2px; padding: 12px 10px; }
+    .book-author{ text-align: left; }
+    .book-date{ order: -1; }
+    .book-date-dm, .book-date-y{ display: inline; }
+    .book-date-dm::after{ content: ' '; }
+  }
+
+  .empty-state{
+    padding: 30px 4px;
+    color: var(--text-dim);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: 24px 0 48px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Leesobsessie</h1>
+    </div>
+    <nav class="site-nav">
+      <a href="#nu">Nu aan het lezen</a>
+      <a href="#archief">Archief</a>
+      <a href="info.html">Over ons</a>
+      <a href="analyse.html">Analyse</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="nu">
+  <div class="wrap">
+    <p class="hero-label">Nu aan het lezen</p>
+    <article class="card">
+      <div class="card-heading">
+        <div>
+          <h2>Als je niet gepakt wil worden dood de schapen dan</h2>
+          <p class="by">Anna Maschik</p>
+        </div>
+        <div class="cover-wrap">
+          <img class="card-cover" src="https://www.kokboekencentrum.nl/wp-content/uploads/2026/10/9789023964049_frontcover_original-320x510.jpg" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='https://api.bruna.nl/images/active/ean/200/9789023964049.jpg';}" alt="Omslag van Als je niet gepakt wil worden dood de schapen dan – Anna Maschik">
+        </div>
+      </div>
+      <ul class="card-chips">
+        <li class="chip-date">
+          <span class="chip-label">📅 Bespreking op</span>
+          <span class="chip-value">maandag 14 december 2026 (19.30 uur)</span>
+        </li>
+        <li class="chip-countdown" id="countdown-chip" data-meeting="2026-12-14" data-time="19:30">
+          <span class="chip-label">⏳ Aftellen</span>
+          <span class="chip-value" id="countdown-value">tot 14 december</span>
+        </li>
+        <li class="chip-location">
+          <span class="chip-label">📍 Locatie</span>
+          <span class="chip-value">Bij Barbara</span>
+        </li>
+        <li class="chip-host">
+          <span class="chip-label">✍️ Voorbereid door</span>
+          <span class="chip-value">Frank B</span>
+        </li>
+      </ul>
+    </article>
+
+<script>
+  /* ---------- Countdown to the meeting (los van de archief-code) ---------- */
+  (function(){
+    var chip = document.getElementById('countdown-chip');
+    var valueEl = document.getElementById('countdown-value');
+    if (!chip || !valueEl) return;
+
+    var d = (chip.getAttribute('data-meeting') || '').split('-').map(Number);
+    var t = (chip.getAttribute('data-time') || '00:00').split(':').map(Number);
+    if (d.length !== 3 || d.some(isNaN)) return;
+    // Lokale tijd, zonder afhankelijk te zijn van hoe de browser datumteksten leest
+    var meeting = new Date(d[0], d[1] - 1, d[2], t[0] || 0, t[1] || 0, 0);
+    var meetingDay = new Date(d[0], d[1] - 1, d[2]);
+
+    function update(){
+      var now = new Date();
+      var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var daysLeft = Math.round((meetingDay - today) / 86400000);
+      var text;
+      if (daysLeft > 1){
+        text = 'Nog ' + daysLeft + ' dagen';
+      } else if (daysLeft === 1){
+        text = 'Morgen!';
+      } else if (daysLeft === 0){
+        var ms = meeting - now;
+        if (ms > 0){
+          var h = Math.floor(ms / 3600000);
+          var m = Math.ceil((ms % 3600000) / 60000);
+          if (m === 60){ h += 1; m = 0; }
+          text = 'Vandaag! Nog ' + (h > 0 ? h + ' u ' : '') + m + ' min';
+        } else {
+          text = 'Vandaag!';
+        }
+      } else {
+        var ago = Math.abs(daysLeft);
+        text = ago === 1 ? 'Gisteren' : ago + ' dagen geleden';
+      }
+      valueEl.textContent = text;
+    }
+
+    update();
+    setInterval(update, 30000);
+  })();
+</script>
+
+    <div class="upcoming">
+      <span class="upcoming-label">Volgende bijeenkomsten:</span>
+      
+      <span class="upcoming-item">📅 Maandag 14 december, 19.30 uur</span>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <p>Leesobsessie komt al meer dan 30 jaar samen om boeken te lezen en te bespreken — van Louis Paul Boon tot Sally Rooney, van de Bijbelse omvang van <em>Honderd jaar eenzaamheid</em> tot een dun essay van Paul Auster. <strong>208 boeken</strong> verder houden we hieronder bij wat we lazen, wanneer, en wie de bespreking voorbereidde.</p>
+  </div>
+</section>
+
+<section class="archive" id="archief">
+  <div class="wrap">
+    <div class="archive-head">
+      <h3>Het archief</h3>
+      <span class="archive-stats" id="stats">208 boeken · 1997–2026</span>
+    </div>
+
+    <div class="controls">
+      <input type="search" id="search" placeholder="Zoek op titel of auteur…" aria-label="Zoek in het archief">
+      <div class="sort-group" role="group" aria-label="Sorteren">
+        <button class="sort-btn" data-sort="chrono" aria-pressed="true">Chronologisch</button>
+        <button class="sort-btn" data-sort="alpha" aria-pressed="false">Op auteur</button>
+      </div>
+    </div>
+
+    <div id="list"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Leesobsessie · 208 boeken sinds 1997 · dit archief wordt bijgewerkt na elke bespreking
+  </div>
+</footer>
+
+<script>
+  const BOOKS = [{"author": "Abdollah, Kader", "title": "Het huis van de moskee", "date_display": "05-04-06", "date_iso": "2006-04-05", "year": 2006, "decade": "2000s", "summary": "Rond het huis van een tapijthandelaar en zijn familie in een Iraans stadje wordt de val van de sjah en de opkomst van de ayatollahs verteld, waarbij vrienden in vijanden veranderen."}, {"author": "Allende, Isabel", "title": "Het eiland onder de zee", "date_display": "06-11-10", "date_iso": "2010-11-06", "year": 2010, "decade": "2010s", "summary": "Een tot slaaf gemaakte vrouw op het achttiende-eeuwse Haïti en Louisiana knokt zich, tegen alle verdrukking in, een weg naar vrijheid en een eigen leven."}, {"author": "Amirrezvani, Anita", "title": "Dochter van Isfahan", "date_display": "13-09-11", "date_iso": "2011-09-13", "year": 2011, "decade": "2010s", "summary": "In het zeventiende-eeuwse Perzië probeert een berooide jonge vrouw via haar talent voor tapijtknopen een menswaardig bestaan op te bouwen in het huis van een rijke oom."}, {"author": "Atwood, Margaret", "title": "Het verhaal van de dienstmaagd", "date_display": "09-11-13", "date_iso": "2013-11-09", "year": 2013, "decade": "2010s", "summary": "In een totalitaire toekomststaat worden vruchtbare vrouwen gedwongen als draagmoeder te dienen voor de machthebbers, met nauwelijks nog eigen zeggenschap over hun lichaam of leven."}, {"author": "Auster, Paul", "title": "Winterlogboek", "date_display": "21-11-12", "date_iso": "2012-11-21", "year": 2012, "decade": "2010s", "summary": "In een reeks lichamelijke herinneringen, van kindertijd tot ouderdom, blikt de auteur op indringende wijze terug op zijn eigen leven en sterfelijkheid."}, {"author": "Auster, Paul", "title": "New York trilogy", "date_display": "16-01-13", "date_iso": "2013-01-16", "year": 2013, "decade": "2010s", "summary": "Drie met elkaar verweven detectiveverhalen in New York draaien stuk voor stuk uit op een duizelingwekkend onderzoek naar identiteit, taal en toeval."}, {"author": "Barnes, Julian", "title": "Het enige verhaal", "date_display": "19-11-18", "date_iso": "2018-11-19", "year": 2018, "decade": "2010s", "summary": "Op zijn negentiende begint een jongeman een hartstochtelijke, taboedoorbrekende liefdesrelatie met een veel oudere getrouwde vrouw, met gevolgen die zijn hele latere leven kleuren."}, {"author": "Barnes, Julian", "title": "Alsof het voorbij is", "date_display": "24-05-12", "date_iso": "2012-05-24", "year": 2012, "decade": "2010s", "summary": "Een gepensioneerde man wordt via een onverwachte erfenis geconfronteerd met een jeugdliefde en moet zijn eigen, gladgestreken herinneringen aan die tijd herzien."}, {"author": "Barry, Sebastiaan", "title": "De geheime schrift", "date_display": "26-09-19", "date_iso": "2019-09-26", "year": 2019, "decade": "2010s", "summary": "In een Iers psychiatrisch ziekenhuis schrijft een oude vrouw in het geheim haar levensverhaal op, terwijl haar psychiater probeert te achterhalen wat haar daar ooit bracht."}, {"author": "Beek op de, Griet", "title": "Kom hier dat ik u kus", "date_display": "03-11-15", "date_iso": "2015-11-03", "year": 2015, "decade": "2010s", "summary": "Een meisje groeit op in een streng katholiek Vlaams gezin en ontdekt gaandeweg, tussen familiedrama's en dorpsroddels, haar eigen verlangen naar vrouwen."}, {"author": "Benali, Abdelkader", "title": "De langverwachte", "date_display": "04-09-03", "date_iso": "2003-09-04", "year": 2003, "decade": "2000s", "summary": "Een nog ongeboren kind met een bijzondere gave vertelt het verhalenrijke verhaal van zijn Marokkaans-Nederlandse familie in Rotterdam."}, {"author": "Bernieres, Louis de", "title": "Kapitein Corelli's mandoline", "date_display": "24-01-01", "date_iso": "2001-01-24", "year": 2001, "decade": "2000s", "summary": "Tijdens de Italiaanse bezetting van een Grieks eiland in de Tweede Wereldoorlog ontstaat een onwaarschijnlijke liefde tussen een dorpsvrouw en een muzikale Italiaanse officier."}, {"author": "Bernlef, J.", "title": "Publiek geheim", "date_display": "12-09-01", "date_iso": "2001-09-12", "year": 2001, "decade": "2000s", "summary": "Een man ontdekt een goed bewaard familiegeheim en moet zich verhouden tot wat er jarenlang onuitgesproken is gebleven binnen zijn naaste kring."}, {"author": "Bervoets, Hanna", "title": "Wat wij zagen (Marijke)", "date_display": "26-07-21", "date_iso": "2021-07-26", "year": 2021, "decade": "2020s", "summary": "Een jonge vrouw modereert dagelijks de meest verontrustende beelden op een sociaalmediaplatform, met een diepe impact op haarzelf en haar relatie met een collega."}, {"author": "Beijnum van, Kees", "title": "De offers", "date_display": "11-04-16", "date_iso": "2016-04-11", "year": 2016, "decade": "2010s", "summary": "Een man moet, na een ingrijpende gebeurtenis in zijn gezin, de prijs onder ogen zien die hij en de mensen om hem heen daarvoor hebben betaald."}, {"author": "Boogers, Alex", "title": "Onder een hemel van sproeten (Peter)", "date_display": "08-11-22", "date_iso": "2022-11-08", "year": 2022, "decade": "2020s", "summary": "In een arme Nederlandse arbeiderswijk vinden een rouwende oude man, een gepeste zwarte jongen en een joods meisje troost bij elkaar, elk gebukt onder hun eigen verlies en eenzaamheid."}, {"author": "Boon, Louis Paul", "title": "Kapellekensbaan", "date_display": "03-11-99", "date_iso": "1999-11-03", "year": 1999, "decade": "1990s", "summary": "Een schrijver ensceneert samen met vrienden een roman-in-wording over een arbeidersmeisje in het negentiende-eeuwse Vlaanderen, waarbij fictie en commentaar op het schrijfproces zich vermengen."}, {"author": "Brakman, Willem", "title": "De gifmenger", "date_display": "08-04-04", "date_iso": "2004-04-08", "year": 2004, "decade": "2000s", "summary": "Een eigenzinnige, fantasierijke roman van fabulist Willem Brakman, vol groteske personages en een montere ondertoon van verval."}, {"author": "Brijs, Stefan", "title": "De engelenmaker", "date_display": null, "date_iso": null, "year": null, "decade": "onbekend", "summary": "Een norse plattelandsarts met een controversieel verleden keert terug naar zijn geboortedorp en behandelt er kinderen met zichtbare afwijkingen, tot zijn eigen duistere geheim aan het licht komt."}, {"author": "Brijs, Stefan", "title": "Post voor mevrouw Bromley", "date_display": "31-08-11", "date_iso": "2011-08-31", "year": 2011, "decade": "2010s", "summary": "Twee jeugdvrienden kiezen tijdens de Eerste Wereldoorlog compleet verschillende paden — de een naar het front, de ander naar de universiteit — met verstrekkende gevolgen voor beiden en de vrouw die hen grootbracht."}, {"author": "Broeckhoven, Diana", "title": "De Buitenkant van meneer Jules", "date_display": "17-12-18", "date_iso": "2018-12-17", "year": 2018, "decade": "2010s", "summary": "Een zorgvuldig portret van een man wiens onopvallende buitenkant een rijk innerlijk leven en een persoonlijke geschiedenis verhult."}, {"author": "Brokken, Jan", "title": "De vergelding", "date_display": "14-08-14", "date_iso": "2014-08-14", "year": 2014, "decade": "2010s", "summary": "In zijn geboortedorp reconstrueert de auteur, aan de hand van tientallen getuigenverslagen, een fatale oorlogsgebeurtenis en de bloedige represaille die daarop volgde."}, {"author": "Bronwasser, Sacha", "title": "Luister (Peter)", "date_display": "10-04-24", "date_iso": "2024-04-10", "year": 2024, "decade": "2020s", "summary": "Een verslag over een vlucht naar Parijs als au pair komt decennia later terecht bij de persoon wier leven erdoor werd veranderd, na een aanslag in de stad."}, {"author": "Brouwers, Jeroen", "title": "Geheime kamers", "date_display": "10-04-02", "date_iso": "2002-04-10", "year": 2002, "decade": "2000s", "summary": "Een teruggetrokken oud-leraar op een woonboot wordt na een uitnodiging opnieuw geconfronteerd met de vrouw op wie hij al zijn hele leven verliefd is, en met de geheimen van zijn eigen huwelijk."}, {"author": "Brouwers, Jeroen", "title": "Het hout", "date_display": "21-03-18", "date_iso": "2018-03-21", "year": 2018, "decade": "2010s", "summary": "Een jonge jongen wordt na de oorlog in een kloosterinternaat geplaatst, waar strenge paters een diepe, blijvende indruk op zijn leven achterlaten."}, {"author": "Brouwers, Jeroen", "title": "Cliënt E. Busken (Marijke)", "date_display": "26-09-22", "date_iso": "2022-09-26", "year": 2022, "decade": "2020s", "summary": "Met bijtende humor en woede beschrijft de auteur zijn bezoeken aan zijn hoogbejaarde, dementerende moeder in het verzorgingshuis."}, {"author": "Bulgakov, Mikhail", "title": "De meester en Margarita", "date_display": "17-09-09", "date_iso": "2009-09-17", "year": 2009, "decade": "2000s", "summary": "Wanneer de duivel in het Moskou van de jaren dertig neerstrijkt, ontstaat een satirische chaos, verweven met het verhaal van een schrijver en de vrouw die alles voor hem overheeft."}, {"author": "Buwalda, Peter", "title": "Bonita Avenue", "date_display": "23-01-12", "date_iso": "2012-01-23", "year": 2012, "decade": "2010s", "summary": "Het perfecte leven van een succesvolle oud-judokampioen en zijn gezin ontrafelt zich wanneer het geheime dubbelleven van zijn stiefdochter aan het licht komt."}, {"author": "Byatt, A.S.", "title": "Obsessie", "date_display": "17-09-98", "date_iso": "1998-09-17", "year": 1998, "decade": "1990s", "summary": "Twee hedendaagse literatuurwetenschappers ontdekken een geheime liefdesgeschiedenis tussen twee Victoriaanse dichters en raken zelf verstrikt in het mysterie."}, {"author": "Carrasco, Jesús", "title": "Terug naar huis (Jef)", "date_display": "02-06-25", "date_iso": "2025-06-02", "year": 2025, "decade": "2020s", "summary": "Een man die naar Schotland is gevlucht, moet na de dood van zijn vader terugkeren naar zijn Spaanse geboortedorp en zijn wegglijdende moeder."}, {"author": "Camus, Albert", "title": "De pest", "date_display": "27-07-17", "date_iso": "2017-07-27", "year": 2017, "decade": "2010s", "summary": "Wanneer de builenpest uitbreekt in een Algerijnse havenstad en de poorten worden gesloten, moeten de inwoners een manier vinden om moreel overeind te blijven te midden van dood en isolement."}, {"author": "Cela, Camilo José", "title": "De bijenkorf", "date_display": "13-01-05", "date_iso": "2005-01-13", "year": 2005, "decade": "2000s", "summary": "In het naoorlogse Madrid trekken tientallen personages door dezelfde straten en cafés, in een veelstemmig portret van een stad vol armoede, hoop en overlevingsdrang."}, {"author": "Celine, Louis-Ferdinand", "title": "Reis naar het einde van de nacht", "date_display": "03-12-08", "date_iso": "2008-12-03", "year": 2008, "decade": "2000s", "summary": "Een ontgoochelde jonge Fransman zwerft door de Eerste Wereldoorlog, de kolonies en de sloppenwijken van Amerika, en ziet overal alleen ellende en absurditeit."}, {"author": "Claudel, Paul", "title": "Grijze zielen", "date_display": "24-04-05", "date_iso": "2005-04-24", "year": 2005, "decade": "2000s", "summary": "In een Frans dorp tijdens de Eerste Wereldoorlog wordt de moord op een meisje onderzocht, terwijl het collectieve zwijgen van de gemeenschap langzaam wordt blootgelegd."}, {"author": "Claudel, Philippe", "title": "Het verslag van Brodeck", "date_display": "07-03-12", "date_iso": "2012-03-07", "year": 2012, "decade": "2010s", "summary": "In een naoorlogs dorp krijgt een man de opdracht een verslag te schrijven over de moord op een vreemdeling, en stuit daarbij op het collectieve zwijgen van zijn buren over hun eigen oorlogsverleden."}, {"author": "Claus, Hugo", "title": "Het verdriet van België", "date_display": "13-05-08", "date_iso": "2008-05-13", "year": 2008, "decade": "2000s", "summary": "Een jongen groeit op in Vlaanderen tijdens de Tweede Wereldoorlog, tussen collaborerende volwassenen, streng katholiek onderwijs en zijn eigen ontluikende schrijverschap."}, {"author": "Coelho, Paulo", "title": "De alchemist", "date_display": "31-05-05", "date_iso": "2005-05-31", "year": 2005, "decade": "2000s", "summary": "Een Andalusische herdersjongen trekt naar de Egyptische piramides op zoek naar een voorspelde schat, en ontdekt onderweg zijn persoonlijke bestemming."}, {"author": "Coetzee, J.M.", "title": "In ongenade", "date_display": "07-06-00", "date_iso": "2000-06-07", "year": 2000, "decade": "2000s", "summary": "Een Zuid-Afrikaanse universiteitsdocent verliest na een schandaal zijn positie en trekt in bij zijn dochter op het platteland, waar hij geconfronteerd wordt met geweld en het nieuwe Zuid-Afrika."}, {"author": "Cognetti, Paolo", "title": "De achte bergen", "date_display": "04-06-18", "date_iso": "2018-06-04", "year": 2018, "decade": "2010s", "summary": "Een jongen uit de stad en een jongen uit de bergen bouwen tijdens hun zomers in de Italiaanse Alpen een levenslange vriendschap op, terwijl hun levenspaden steeds verder uiteenlopen."}, {"author": "Couperus, Louis", "title": "Psyche", "date_display": "16-12-02", "date_iso": "2002-12-16", "year": 2002, "decade": "2000s", "summary": "In een sprookjesachtige allegorie zoekt de mythische Psyche, half mens en half vogel, naar een ongrijpbare, goddelijke geliefde."}, {"author": "Crossan, Sarah", "title": "Tussen ons (Frank P)", "date_display": "09-01-24", "date_iso": "2024-01-09", "year": 2024, "decade": "2020s", "summary": "Na het plotselinge overlijden van haar minnaar moet een getrouwde vrouw in stilte rouwen om een jarenlange, geheime affaire die ze met niemand kan delen."}, {"author": "Cuijpers, Anke", "title": "Wortelpijn", "date_display": "19-02-10", "date_iso": "2010-02-19", "year": 2010, "decade": "2010s", "summary": "Een persoonlijk en herkenbaar verhaal over familiebanden, verlies en de pijnlijke wortels die iemand met zich meedraagt, ook als die tijden geleden zijn achtergelaten."}, {"author": "Daanje, Anjet", "title": "Gezel in marmer (Jef)", "date_display": "17-01-23", "date_iso": "2023-01-17", "year": 2023, "decade": "2020s", "summary": "Een beeldhouwster krijgt alle roem, terwijl de steenhouwster die haar ontwerpen jarenlang trouw uithakt op de achtergrond blijft — tot hun stille samenwerking op scherp komt te staan."}, {"author": "Deyssel van, Lodewijk", "title": "Een liefde", "date_display": "26-10-11", "date_iso": "2011-10-26", "year": 2011, "decade": "2010s", "summary": "In deze negentiende-eeuwse romanklassieker beleeft een jonge vrouw een sensuele, hooggestemde verliefdheid die geleidelijk verschraalt tot een ontnuchterend burgerlijk huwelijk."}, {"author": "Dis van, Adriaan", "title": "Dubbelliefde", "date_display": "20-07-00", "date_iso": "2000-07-20", "year": 2000, "decade": "2000s", "summary": "Een man kijkt terug op zijn jeugd en de spanning tussen de vrouwen die zijn leven hebben bepaald, in een persoonlijk verslag over liefde en verlangen."}, {"author": "Dis van, Adriaan", "title": "Ik kom terug", "date_display": "03-03-16", "date_iso": "2016-03-03", "year": 2016, "decade": "2010s", "summary": "De auteur beschrijft de laatste levensjaren van zijn hoogbejaarde, dementerende moeder en de manier waarop hij, ondanks alles, telkens weer naar haar terugkeert."}, {"author": "Dis van, Adriaan", "title": "De wandelaar", "date_display": "30-01-08", "date_iso": "2008-01-30", "year": 2008, "decade": "2000s", "summary": "Een Nederlandse zwerver trekt door Noord-Afrika en probeert daar, ver van huis, grip te krijgen op zijn eigen rusteloosheid en verleden."}, {"author": "Doerr, Anthony", "title": "Bevroren dromen", "date_display": "21-02-18", "date_iso": "2018-02-21", "year": 2018, "decade": "2010s", "summary": "Een stille man met levensechte voorspellende dromen verlaat zijn gezin uit angst voor een van die dromen, en reist naar de andere kant van de wereld."}, {"author": "Dostojewski, Fodor", "title": "Schuld en boete", "date_display": "22-11-98", "date_iso": "1998-11-22", "year": 1998, "decade": "1990s", "summary": "Een straatarme student in Sint-Petersburg pleegt een moord uit een zelfbedachte theorie over uitzonderlijke mensen, en wordt vervolgens verteerd door schuldgevoel."}, {"author": "Durlacher, Jessica", "title": "De dochter", "date_display": "17-06-02", "date_iso": "2002-06-17", "year": 2002, "decade": "2000s", "summary": "Een jonge joodse man ontmoet in het Anne Frank Huis een vrouw naar wie hij zich onweerstaanbaar aangetrokken voelt, zonder te weten welk oorlogsverleden zij met zich meedraagt."}, {"author": "Enquist, Anna", "title": "Het meesterwerk", "date_display": null, "date_iso": null, "year": null, "decade": "onbekend", "summary": "Losjes gebaseerd op de opera Don Giovanni ontrafelt zich een familiedrama rond een meedogenloze kunstschilder, zijn ex-vrouw en zijn rivaliserende broer."}, {"author": "Enquist, Per Olov", "title": "Het bezoek van de lijfarts", "date_display": "23-09-02", "date_iso": "2002-09-23", "year": 2002, "decade": "2000s", "summary": "In het achttiende-eeuwse Denemarken krijgt de persoonlijke arts van de geesteszieke koning steeds meer macht aan het hof, met een verboden liefde voor de koningin tot gevolg."}, {"author": "Erpenbeck, Jenny", "title": "Gaan, ging, gegaan (Barbara)", "date_display": "28-01-25", "date_iso": "2025-01-28", "year": 2025, "decade": "2020s", "summary": "Een gepensioneerde Berlijnse hoogleraar raakt steeds meer betrokken bij het leven van een groep Afrikaanse vluchtelingen in zijn stad."}, {"author": "Essen, Rob van", "title": "De goede zoon", "date_display": "30-05-22", "date_iso": "2022-05-30", "year": 2022, "decade": "2020s", "summary": "Een man die op een dag zijn geheugen kwijtraakt, ontdekt bij zijn zoektocht naar zijn eigen identiteit een absurdistische, ontregelende versie van de werkelijkheid."}, {"author": "Essen, Rob van", "title": "Ik kom er nog op terug (Leon)", "date_display": "16-12-24", "date_iso": "2024-12-16", "year": 2024, "decade": "2020s", "summary": "Een journalist krijgt van een oude studiegenoot de kans om door de tijd te reizen en een ingrijpende jeugdgebeurtenis alsnog recht te zetten."}, {"author": "Estherhazy, Peter", "title": "Een vrouw", "date_display": "11-01-06", "date_iso": "2006-01-11", "year": 2006, "decade": "2000s", "summary": "In zeventig korte, associatieve fragmenten die stuk voor stuk beginnen met 'een vrouw is...', tekent de auteur een kaleidoscopisch, erotisch geladen portret van vrouwen en verlangen."}, {"author": "Esquivel, Laura", "title": "Rode rozen en tortillas", "date_display": null, "date_iso": null, "year": null, "decade": "onbekend", "summary": "Een jonge vrouw in Mexico legt haar diepste emoties en verboden liefdes in de recepten die ze voor haar familie kookt, met magische gevolgen voor wie ervan eet."}, {"author": "Fallada, Hans", "title": "Wat nu, kleine man", "date_display": "10-07-18", "date_iso": "2018-07-10", "year": 2018, "decade": "2010s", "summary": "Een jong stel probeert tijdens de crisisjaren van de Weimarrepubliek, ondanks werkloosheid en armoede, hun waardigheid en liefde voor elkaar overeind te houden."}, {"author": "Fanto, Judith", "title": "Narcis (Leon)", "date_display": "27-08-25", "date_iso": "2025-08-27", "year": 2025, "decade": "2020s", "summary": "Na de dood van zijn moeder verhuist een jongen naar Wenen, waar zijn hechte vriendengroep uiteenvalt zodra de nazi's de macht grijpen."}, {"author": "Februari, Marjolein", "title": "De literaire kring", "date_display": "14-05-07", "date_iso": "2007-05-14", "year": 2007, "decade": "2000s", "summary": "In een welgesteld dorp wordt een deftige leesclub opgeschud wanneer een oud-klasgenote een bestseller blijkt te hebben geschreven over een schandaal dat de notabelen liever vergeten waren."}, {"author": "Foer, Jonathan Safran", "title": "Alles is verlicht", "date_display": "19-05-04", "date_iso": "2004-05-19", "year": 2004, "decade": "2000s", "summary": "Een jonge Amerikaan reist naar Oekraïne op zoek naar de vrouw die zijn grootvader tijdens de oorlog het leven redde, geholpen door een net zo hilarische als ontroerende lokale gids."}, {"author": "Fosse, Jon", "title": "Een schitterend wit (Frank B)", "date_display": "29-06-26", "date_iso": "2026-06-29", "year": 2026, "decade": "2020s", "summary": "Een man rijdt doelloos zijn auto een bos in, raakt vast in de modder en dwaalt het donker in, terwijl de grens tussen leven en dood vervaagt."}, {"author": "Fournier, Alain", "title": "Het grote avontuur", "date_display": "20-01-09", "date_iso": "2009-01-20", "year": 2009, "decade": "2000s", "summary": "Een schooljongen raakt in de ban van een mysterieuze medeleerling die hem meesleept in een obsessieve zoektocht naar een raadselachtig, ooit bezocht landgoed en de liefde die hij er vond."}, {"author": "Franck, Julia", "title": "Die Mittagsfrau", "date_display": "23-02-17", "date_iso": "2017-02-23", "year": 2017, "decade": "2010s", "summary": "Een vrouw in het door oorlog verscheurde Duitsland van de twintigste eeuw laat op een dag haar jonge zoon achter op een station, een daad die pas jaren later wordt verklaard."}, {"author": "Friedman, Carl", "title": "Tralievader", "date_display": "03-06-98", "date_iso": "1998-06-03", "year": 1998, "decade": "1990s", "summary": "Een jonge vrouw groeit op met een vader die de Holocaust overleefde, en probeert grip te krijgen op zijn zwijgen en de littekens die hij aan het gezin doorgeeft."}, {"author": "Frisch, Max", "title": "M. Stiller", "date_display": "12-10-98", "date_iso": "1998-10-12", "year": 1998, "decade": "1990s", "summary": "Een man met een nieuwe naam ontkent hardnekkig dat hij de vermiste beeldhouwer is voor wie iedereen hem aanziet, in een onderzoek naar identiteit en zelfbedrog."}, {"author": "Galgut, Damon", "title": "De belofte (Leon)", "date_display": "21-05-26", "date_iso": "2026-05-21", "year": 2026, "decade": "2020s", "summary": "Een witte Zuid-Afrikaanse familie valt over de generaties heen uiteen rond een belofte aan hun zwarte huishoudster die maar niet wordt ingelost."}, {"author": "Giordano, Paolo", "title": "De eenzaamheid van de priemgetallen", "date_display": "09-11-09", "date_iso": "2009-11-09", "year": 2009, "decade": "2000s", "summary": "Twee getekende, van elkaar vervreemde mensen trekken door de jaren heen naar elkaar toe en weer uit elkaar, als twee opeenvolgende priemgetallen die nooit echt samenkomen."}, {"author": "Grass Gunther", "title": "In krabbengang", "date_display": "20-05-15", "date_iso": "2015-05-20", "year": 2015, "decade": "2010s", "summary": "De verzwegen ondergang van een Duits vluchtelingenschip aan het einde van de Tweede Wereldoorlog blijkt drie generaties later nog altijd door te werken in een gebroken familie."}, {"author": "Grødahl, Jens Christian", "title": "Portret van een man", "date_display": "03-04-17", "date_iso": "2017-04-03", "year": 2017, "decade": "2010s", "summary": "Een man kijkt op latere leeftijd terug op zijn levensloop en de keuzes die hem hebben gemaakt tot wie hij is geworden."}, {"author": "Grødahl, Jens Christian", "title": "Vaak ben ik gelukkig", "date_display": "03-12-19", "date_iso": "2019-12-03", "year": 2019, "decade": "2010s", "summary": "Een weduwe schrijft een lange bekentenis aan haar allang overleden vriendin, over een fataal skiongeluk en de geheimen die haar leven daarna stilletjes hebben bepaald."}, {"author": "Grossman, David", "title": "Een vrouw op de vlucht voor een bericht (Marijke)", "date_display": "04-07-23", "date_iso": "2023-07-04", "year": 2023, "decade": "2020s", "summary": "Uit angst voor het bericht dat haar zoon in het leger is gesneuveld, vlucht een Israëlische moeder het land door op een lange wandeltocht."}, {"author": "Grunberg, Arnon", "title": "De blauwe maandag", "date_display": "06-07-98", "date_iso": "1998-07-06", "year": 1998, "decade": "1990s", "summary": "Een jonge, onhandige puber uit een joods Amsterdams gezin worstelt met verliefdheid, seksualiteit en het gewicht van de familiegeschiedenis."}, {"author": "Grunberg, Arnon", "title": "De asielzoeker", "date_display": "07-10-04", "date_iso": "2004-10-07", "year": 2004, "decade": "2000s", "summary": "Een Nederlandse man neemt de identiteit en asielaanvraag van een gevluchte Afrikaan over, en verliest daarmee langzaam grip op wie hij zelf is."}, {"author": "Guldberg, Torben", "title": "Over het bestaan van de liefde", "date_display": "19-01-11", "date_iso": "2011-01-19", "year": 2011, "decade": "2010s", "summary": "Een teruggetrokken, van de wereld vervreemde man wordt door een onverwachte ontmoeting gedwongen zijn eenzame bestaan en zijn vermogen tot liefhebben opnieuw onder ogen te zien."}, {"author": "Haasse, Hella", "title": "Sleuteloog", "date_display": null, "date_iso": null, "year": null, "decade": "onbekend", "summary": "Een oudere vrouw wordt via een verzoek uit haar Indische jeugd gedwongen terug te denken aan het vooroorlogse Nederlands-Indië en de vriendschap die haar leven heeft getekend."}, {"author": "Hansen, Dörte", "title": "Het oude land (Barbara)", "date_display": "06-06-24", "date_iso": "2024-06-06", "year": 2024, "decade": "2020s", "summary": "Een vrouw die ooit uit Oost-Duitsland vluchtte, leidt een teruggetrokken bestaan op een verwaarloosde boerderij, tot een jong nichtje bij haar intrekt."}, {"author": "Hart, Maarten 't", "title": "Een vlucht regenwulpen", "date_display": "08-12-14", "date_iso": "2014-12-08", "year": 2014, "decade": "2010s", "summary": "Een vereenzaamde man met een onbeheersbare drift naar jonge meisjes ontmoet een bevriende ornithologe, in een beklemmende roman over verlangen en zelfbeheersing."}, {"author": "Haushofer, Marlen", "title": "De wand", "date_display": "26-04-11", "date_iso": "2011-04-26", "year": 2011, "decade": "2010s", "summary": "Een vrouw raakt door een onzichtbare, ondoordringbare wand volledig afgesneden van de rest van de mensheid en moet in haar eentje overleven in de natuur."}, {"author": "Heerma van Voss, Daan", "title": "Geen vaarwel vandaag (Frank P)", "date_display": "07-11-24", "date_iso": "2024-11-07", "year": 2024, "decade": "2020s", "summary": "Als een afstandelijke vader onverwacht sterft, worden zijn ex-vrouw en drie kinderen gedwongen zich alsnog tot hem en elkaar te verhouden."}, {"author": "Hemmerechts, Kristien", "title": "Taal zonder mij", "date_display": "11-01-99", "date_iso": "1999-01-11", "year": 1999, "decade": "1990s", "summary": "Een vrouw probeert via herinneringen en taal grip te krijgen op een pijnlijke familiegeschiedenis en de manier waarop die haar eigen leven heeft getekend."}, {"author": "Hertmans, Stefan", "title": "Oorlog en terpentijn", "date_display": "21-06-16", "date_iso": "2016-06-21", "year": 2016, "decade": "2010s", "summary": "Aan de hand van de nagelaten schriften van zijn grootvader reconstrueert de auteur diens jeugd, zijn gruwelijke ervaringen in de Eerste Wereldoorlog en zijn nooit vervulde droom om schilder te worden."}, {"author": "Hertmans, Stefan", "title": "Dius (Marijke)", "date_display": "05-01-26", "date_iso": "2026-01-05", "year": 2026, "decade": "2020s", "summary": "Een kunstdocent en zijn opdringerige student raken hun leven lang verstrikt in een intense vriendschap, gedreven door kunst en verlangen naar een verdwenen tijd."}, {"author": "Heulendonk, Guido van", "title": "De kroon met de twee pieken (Frank P)", "date_display": "17-11-25", "date_iso": "2025-11-17", "year": 2025, "decade": "2020s", "summary": "Via meerdere, niet-chronologische vertellers ontrafelt zich het gelaagde levensverhaal van een gemeenteambtenaar en zijn gezin."}, {"author": "Heijden, A.F. van der", "title": "Asbestemming", "date_display": "15-09-97", "date_iso": "1997-09-15", "year": 1997, "decade": "1990s", "summary": "Na de dood van zijn vader schrijft de auteur een persoonlijk en poëtisch requiem, op zoek naar een passende laatste rustplaats voor diens as."}, {"author": "Hlasko, Marek", "title": "De uil is de dochter van de bakker", "date_display": "21-07-05", "date_iso": "2005-07-21", "year": 2005, "decade": "2000s", "summary": "Een rauw en ontnuchterend verhaal van de Poolse schrijver Marek Hłasko over jonge mensen die vergeefs proberen te ontsnappen aan de benauwdheid van hun bestaan."}, {"author": "Hosseini, Khaled", "title": "De vliegeraar", "date_display": "22-02-06", "date_iso": "2006-02-22", "year": 2006, "decade": "2000s", "summary": "Twee jongens uit verschillende sociale klassen groeien op als vrienden in Kaboel, tot een verraad hun band en levens voorgoed verandert."}, {"author": "Houellebecq, Michel", "title": "Elementaire deeltjes", "date_display": "29-02-00", "date_iso": "2000-02-29", "year": 2000, "decade": "2000s", "summary": "Twee halfbroers met compleet verschillende levens — de een obsessief rationeel, de ander hedonistisch — belichamen elk op hun eigen manier de vervreemding van de moderne mens."}, {"author": "Houellebecq, Michel", "title": "Onderworpen", "date_display": "30-09-15", "date_iso": "2015-09-30", "year": 2015, "decade": "2010s", "summary": "In een nabije toekomst wint een gematigde islamitische partij de Franse verkiezingen, en ziet een cynische universitair hoogleraar zijn seculiere levensstijl geleidelijk veranderen."}, {"author": "Hulme Keri", "title": "Kerewin", "date_display": null, "date_iso": null, "year": null, "decade": "onbekend", "summary": "Een teruggetrokken kunstenares op Nieuw-Zeeland bouwt een bijzondere, soms gewelddadige band op met een stom jongetje en zijn Maori-pleegvader."}, {"author": "Jansen, Suzanna", "title": "De omwenteling (Leon)", "date_display": "13-04-23", "date_iso": "2023-04-13", "year": 2023, "decade": "2020s", "summary": "Aan de hand van haar eigen familie, met haar moeder in de hoofdrol, schetst de auteur hoe de positie van de vrouw in Nederland een eeuw lang langzaam maar onstuitbaar veranderde."}, {"author": "Japin, Arthur", "title": "Een schitterend gebrek", "date_display": "24-06-04", "date_iso": "2004-06-24", "year": 2004, "decade": "2000s", "summary": "De jonge Casanova wordt naar het achttiende-eeuwse hof van Rusland gestuurd om er een unieke loterij te organiseren, in een weelderig verhaal over geluk en verval."}, {"author": "Jedrowski, Tomasz", "title": "Zwemmen in het donker (Peter)", "date_display": "24-02-26", "date_iso": "2026-02-24", "year": 2026, "decade": "2020s", "summary": "Twee jonge mannen worden verliefd tijdens een zomer aan het water in het communistische Polen van 1980, met alle gevaar dat daarbij hoort."}, {"author": "Joyce, James", "title": "Portrait of an artist as a young man", "date_display": "12-09-07", "date_iso": "2007-09-12", "year": 2007, "decade": "2000s", "summary": "Een jonge Ier groeit op in een streng katholiek gezin en worstelt zich, via geloofstwijfel en kunstenaarschap, los van familie, kerk en vaderland."}, {"author": "Kawakami, Mieko", "title": "Borsten en eitjes (Frank P)", "date_display": "05-11-26", "date_iso": "2026-11-05", "year": 2026, "decade": "2020s", "summary": "Een worstelende schrijfster in Tokio krijgt haar zus, die een borstvergroting wil, en haar zwijgende nichtje te logeren, en besluit jaren later als alleenstaande vrouw via een spermadonor moeder te worden."}, {"author": "Kellendonk, Frans", "title": "Mystiek lichaam", "date_display": "27-03-03", "date_iso": "2003-03-27", "year": 2003, "decade": "2000s", "summary": "Binnen een katholieke antiekhandelaarsfamilie zetten geloof, seksualiteit en de aidsziekte van de homoseksuele zoon alle onderlinge verhoudingen op scherp."}, {"author": "Kertesz, Imre", "title": "Onbepaald door het lot (Jef)", "date_display": "01-07-24", "date_iso": "2024-07-01", "year": 2024, "decade": "2020s", "summary": "Een vijftienjarige Hongaarse jongen wordt gedeporteerd naar de concentratiekampen en beschrijft met een verontrustende nuchterheid wat hem overkomt."}, {"author": "Koch, Herman", "title": "Het diner", "date_display": "24-07-12", "date_iso": "2012-07-24", "year": 2012, "decade": "2010s", "summary": "Tijdens een etentje in een chic restaurant proberen twee stellen te bepalen hoe ver ze willen gaan om hun kinderen te beschermen na een gewelddadig misdrijf."}, {"author": "Komrij, Gerrit", "title": "Klopgeest", "date_display": "16-01-02", "date_iso": "2002-01-16", "year": 2002, "decade": "2000s", "summary": "Een spitse, ironische roman van de scherpzinnige dichter en polemist Gerrit Komrij, doortrokken van zijn kenmerkende gevoel voor stijl en spot."}, {"author": "Kraus, Nicole", "title": "De geschiedenis van de liefde", "date_display": "18-07-11", "date_iso": "2011-07-18", "year": 2011, "decade": "2010s", "summary": "Een verdwenen manuscript verbindt een oude, eenzame man in New York met een tienermeisje dat naar hem vernoemd is, in een verhaal over verlies en de kracht van verhalen."}, {"author": "Krol, G.", "title": "60.000 uren", "date_display": "22-05-01", "date_iso": "2001-05-22", "year": 2001, "decade": "2000s", "summary": "Een eigenzinnige, ironische verkenning van het dagelijks leven, waarin de auteur met scherpe precisie de kleine absurditeiten van het bestaan blootlegt."}, {"author": "Kundera, Milan", "title": "De ondraaglijke lichtheid van het bestaan", "date_display": "17-12-06", "date_iso": "2006-12-17", "year": 2006, "decade": "2000s", "summary": "Tegen de achtergrond van de Praagse Lente worstelen een chirurg, zijn vrouw en zijn minnares met liefde, trouw en de vraag hoe zwaar of licht een mensenleven eigenlijk weegt."}, {"author": "Lanoye, Tom", "title": "Het derde huwelijk", "date_display": "09-07-08", "date_iso": "2008-07-09", "year": 2008, "decade": "2000s", "summary": "Een vrouw blikt met bitse humor terug op haar drie huwelijken en de mannen die haar leven hebben bepaald, in een scherpe satire op liefde en status."}, {"author": "Lanoye, Tom", "title": "Sprakeloos", "date_display": "09-06-11", "date_iso": "2011-06-09", "year": 2011, "decade": "2010s", "summary": "Na een beroerte verliest de moeder van de auteur, een gevierde amateuractrice, haar spraakvermogen, wat hem dwingt terug te kijken op hun gecompliceerde band."}, {"author": "Leky, Mariana", "title": "Vanuit hier zie je alles (Frank B)", "date_display": "13-12-22", "date_iso": "2022-12-13", "year": 2022, "decade": "2020s", "summary": "In een klein Duits dorp verandert het leven van een meisje voorgoed wanneer haar oma op een nacht droomt dat er iemand gaat sterven."}, {"author": "Lewinski, Charles", "title": "Halfbaard (Frank B)", "date_display": null, "date_iso": null, "year": null, "decade": "onbekend", "summary": "Een joodse jongen in het door de nazi's bezette Polen vertelt naïef en argeloos over het steeds gewelddadiger wordende leven om hem heen, zonder de draagwijdte ervan te begrijpen."}, {"author": "Lewinsky, Charles", "title": "Halfbaard (Frank B)", "date_display": "09-10-25", "date_iso": "2025-10-09", "year": 2025, "decade": "2020s", "summary": "Een jongen in het middeleeuwse Schwyz leert van een geheimzinnige vreemdeling met een verbrand gezicht hoe verhalen en legendes ontstaan, terwijl zijn dal afstevent op de slag bij Morgarten."}, {"author": "Llosa, Mario Vargas", "title": "Het groene huis", "date_display": "16-03-11", "date_iso": "2011-03-16", "year": 2011, "decade": "2010s", "summary": "In een afgelegen stad in Peru verweven de levens van uiteenlopende personages zich rond een mysterieus bordeel aan de rand van de jungle."}, {"author": "Maalouf, Amin", "title": "De ontheemden", "date_display": "27-02-14", "date_iso": "2014-02-27", "year": 2014, "decade": "2010s", "summary": "Decennia na de Libanese burgeroorlog roept een oude vriend zijn verspreid geraakte jeugdvrienden terug naar hun geboorteland, om oude breuken eindelijk te helen."}, {"author": "Marai, Sandor", "title": "Gloed", "date_display": "17-04-01", "date_iso": "2001-04-17", "year": 2001, "decade": "2000s", "summary": "Twee oude vrienden ontmoeten elkaar na tientallen jaren weer in een Hongaars kasteel, om eindelijk een oud verraad en een gedeelde liefde onder ogen te zien."}, {"author": "Marquez, Gabriel García", "title": "Honderd jaar eenzaamheid", "date_display": "27-02-07", "date_iso": "2007-02-27", "year": 2007, "decade": "2000s", "summary": "Zeven generaties van de familie Buendía beleven de opkomst en ondergang van het mythische dorp Macondo, in een weelderige mix van geschiedenis en magisch realisme."}, {"author": "Martel, Yann", "title": "Pi", "date_display": "22-09-05", "date_iso": "2005-09-22", "year": 2005, "decade": "2000s", "summary": "Een Indiase jongen overleeft een schipbreuk en weken op een reddingsboot in gezelschap van een Bengaalse tijger, in een verhaal dat vraagt welke versie van de werkelijkheid je wilt geloven."}, {"author": "McEwan, Ian", "title": "Zaterdag", "date_display": "16-05-06", "date_iso": "2006-05-16", "year": 2006, "decade": "2000s", "summary": "Op één dag in Londen ziet een succesvolle neurochirurg zijn ordelijke leven ontregeld raken door een dreigende confrontatie met een gewelddadige vreemde."}, {"author": "McEwan, Ian", "title": "Lessen (Marijke)", "date_display": "25-09-24", "date_iso": "2024-09-25", "year": 2024, "decade": "2020s", "summary": "Een man blikt terug op een leven dat blijvend werd getekend door een grensoverschrijdende jeugdervaring met zijn pianolerares."}, {"author": "Menasse, Eva", "title": "Dunkelblum zwijgt (Leon)", "date_display": "26-02-24", "date_iso": "2024-02-26", "year": 2024, "decade": "2020s", "summary": "In een Oostenrijks grensdorp komt een decennialang verzwegen oorlogsmisdaad aan het licht wanneer een oude inwoner dood wordt gevonden."}, {"author": "Mercier, Pascal", "title": "Nachttrein naar Lissabon", "date_display": "31-10-07", "date_iso": "2007-10-31", "year": 2007, "decade": "2000s", "summary": "Een Zwitserse leraar Latijn laat op een dag alles achter zich voor een spontane reis naar Lissabon, op het spoor van een geheimzinnige Portugese arts-schrijver uit het verzet."}, {"author": "Mernissi, Fatima", "title": "Het verboden dakterras", "date_display": "15-11-00", "date_iso": "2000-11-15", "year": 2000, "decade": "2000s", "summary": "In een Marokkaanse harem herinnert een meisje zich hoe de vrouwen om haar heen droomden van vrijheid voorbij de muren en het verboden dakterras."}, {"author": "Michielsen, Dido", "title": "Lichter dan ik (Barbara)", "date_display": "08-03-23", "date_iso": "2023-03-08", "year": 2023, "decade": "2020s", "summary": "Een jonge vrouw van gemengde afkomst zoekt haar plek en identiteit in het koloniale Nederlands-Indië van de negentiende eeuw."}, {"author": "Mishima, Yukio", "title": "Het gouden paviljoen", "date_display": "10-01-00", "date_iso": "2000-01-10", "year": 2000, "decade": "2000s", "summary": "Een jonge, stotterende boeddhistische monnik raakt geobsedeerd door de verstikkende schoonheid van de tempel die hij dient, met een verwoestende afloop."}, {"author": "Mo Yan", "title": "Kikkers", "date_display": "15-01-14", "date_iso": "2014-01-15", "year": 2014, "decade": "2010s", "summary": "Een vroedvrouw die decennia lang de geboortebeperkingspolitiek van China uitvoerde, kijkt terug op de ingrijpende gevolgen van haar werk voor de gemeenschap om haar heen."}, {"author": "Moor, Marente de", "title": "De Nederlandse maagd", "date_display": "16-04-12", "date_iso": "2012-04-16", "year": 2012, "decade": "2010s", "summary": "Een Nederlands meisje wordt in 1936 voor schermlessen naar een Duits landgoed gestuurd, waar ze de opkomst van het nazisme van dichtbij meemaakt."}, {"author": "Moor, Margriet de", "title": "De schilder en het meisje", "date_display": "06-11-10", "date_iso": "2010-11-06", "year": 2010, "decade": "2010s", "summary": "Op de dag dat een jong Deens meisje in het zeventiende-eeuwse Amsterdam wordt terechtgesteld, raakt haar lot verstrengeld met dat van de rouwende schilder Rembrandt."}, {"author": "Möring, Marcel", "title": "In Babylon", "date_display": "17-11-97", "date_iso": "1997-11-17", "year": 1997, "decade": "1990s", "summary": "Tijdens een sneeuwstorm raken een man en zijn nichtje ingesloten in een oud familiehuis, waar hij haar de eeuwenoude geschiedenis van hun joodse voorgeslacht vertelt."}, {"author": "Mortier, Erwin", "title": "Godenslaap", "date_display": "14-07-09", "date_iso": "2009-07-14", "year": 2009, "decade": "2000s", "summary": "Op het einde van haar leven herinnert een oude vrouw zich haar jeugd in Vlaanderen tijdens de Eerste Wereldoorlog, en de Britse soldaten die toen haar dorp binnentrokken."}, {"author": "Mulisch, Harry", "title": "Twee vrouwen", "date_display": "15-11-10", "date_iso": "2010-11-15", "year": 2010, "decade": "2010s", "summary": "Een vrouw die net haar man heeft verlaten, begint een hartstochtelijke, verboden liefdesrelatie met een jongere vrouw, met een noodlottige afloop."}, {"author": "Müller, Herta", "title": "Ademschommel", "date_display": "21-05-10", "date_iso": "2010-05-21", "year": 2010, "decade": "2010s", "summary": "Een zeventienjarige Roemeense Duitser wordt na de Tweede Wereldoorlog naar een Sovjet-werkkamp gedeporteerd, waar honger, kou en overleven zijn hele wezen gaan beheersen."}, {"author": "Münninghoff, Alexander", "title": "De stamhouder", "date_display": "18-01-22", "date_iso": "2022-01-18", "year": 2022, "decade": "2020s", "summary": "De auteur reconstrueert hoe zijn Nederlandse grootvader en Letse grootmoeder, verscheurd tussen nazisme en communisme, hun familie door twee wereldoorlogen en het IJzeren Gordijn heen loodsten."}, {"author": "Murat, Isik", "title": "Wees onzichtbaar", "date_display": "11-10-18", "date_iso": "2018-10-11", "year": 2018, "decade": "2010s", "summary": "Een jongen uit een Turks migrantengezin in Amsterdam-Zuidoost vecht zich, tegen alle verwachtingen in, een weg naar boven."}, {"author": "Mutsaers, Charlotte", "title": "Harnas van Hansaplast", "date_display": "15-01-18", "date_iso": "2018-01-15", "year": 2018, "decade": "2010s", "summary": "Een eigenzinnige, associatieve verkenning van kwetsbaarheid en bescherming, in de kenmerkende beeldende stijl van Charlotte Mutsaers."}, {"author": "Mutsaers, Charlotte", "title": "Zeepijn", "date_display": "21-11-00", "date_iso": "2000-11-21", "year": 2000, "decade": "2000s", "summary": "Een persoonlijke, associatieve verkenning van verlangen, verlies en de zee, in de eigenzinnige beeldrijke stijl die de auteur kenmerkt."}, {"author": "Murakami, Haruki", "title": "Norwegian wood", "date_display": "19-03-08", "date_iso": "2008-03-19", "year": 2008, "decade": "2000s", "summary": "Een student in het Tokio van de jaren zestig verscheurt zich tussen twee heel verschillende vrouwen, terwijl hij worstelt met verlies en de herinnering aan een overleden vriend."}, {"author": "Murakami, Haruki", "title": "Hard boiled wonderland en het einde van de wereld", "date_display": "13-01-16", "date_iso": "2016-01-13", "year": 2016, "decade": "2010s", "summary": "Twee parallelle verhaallijnen — een cyberpunk-achtig Tokio en een raadselachtige ommuurde stad — blijken via het bewustzijn van de hoofdpersoon met elkaar verbonden."}, {"author": "Mysliwski, Wieslaw", "title": "De laatste hand", "date_display": "18-01-17", "date_iso": "2017-01-18", "year": 2017, "decade": "2010s", "summary": "In een afgelegen Pools dorp herinnert een oude man zich, in kringelende overpeinzingen, zijn leven en de mensen die hij onderweg is kwijtgeraakt."}, {"author": "Naipaul, V.S.", "title": "Een huis voor mijnheer Biswas", "date_display": "28-02-02", "date_iso": "2002-02-28", "year": 2002, "decade": "2000s", "summary": "Een Trinidadees-Indiase man vecht zijn hele leven voor iets wat niemand hem gunt: een eigen huis en een beetje onafhankelijkheid van zijn overheersende schoonfamilie."}, {"author": "Nescio", "title": "Titaantjes", "date_display": "28-06-10", "date_iso": "2010-06-28", "year": 2010, "decade": "2010s", "summary": "Een groep jonge Amsterdamse vrienden droomt van een groots, vrij leven vol idealen, tot de dagelijkse werkelijkheid hen langzaam inhaalt."}, {"author": "Nietzsche, Friedrich", "title": "Also sprach Zararthoestra", "date_display": "10-10-00", "date_iso": "2000-10-10", "year": 2000, "decade": "2000s", "summary": "In poëtische parabelvorm verkondigt een profeet zijn filosofie over de wil tot macht, de dood van God en de Übermensch."}, {"author": "Nooteboom, Cees", "title": "Allerzielen", "date_display": "08-07-99", "date_iso": "1999-07-08", "year": 1999, "decade": "1990s", "summary": "Een documentairemaker zwerft door het naoorlogse Berlijn en raakt verstrikt in een fragiele liefde, terwijl hij nog altijd rouwt om zijn omgekomen gezin."}, {"author": "Oz, Amos", "title": "Judas", "date_display": "22-11-16", "date_iso": "2016-11-22", "year": 2016, "decade": "2010s", "summary": "In het Jeruzalem van 1959 raakt een eenzame student verstrikt in de gedachtewereld van een oude intellectueel en diens opvattingen over verraad, geloof en de figuur van Judas."}, {"author": "O'Brein, Edna", "title": "De rode stoeltjes", "date_display": "13-03-19", "date_iso": "2019-03-13", "year": 2019, "decade": "2010s", "summary": "Een mysterieuze vreemdeling duikt op in een Iers dorp en ontwricht het leven van een vrouw die hem niet kent als de oorlogsmisdadiger die hij blijkt te zijn."}, {"author": "O'Farrell, Maggie", "title": "Het huwelijksportret (Hanske)", "date_display": "22-05-23", "date_iso": "2023-05-22", "year": 2023, "decade": "2020s", "summary": "In het Italië van de zestiende eeuw wordt een jonge hertogin uitgehuwelijkt en ontdekt ze hoe gevaarlijk haar nieuwe leven aan het hof is."}, {"author": "Ondaatje, Michael", "title": "Blindganger (Barbara)", "date_display": "22-10-20", "date_iso": "2020-10-22", "year": 2020, "decade": "2020s", "summary": "In het naoorlogse Londen worden twee kinderen door hun moeder achtergelaten bij een raadselachtige voogd; jaren later probeert de zoon te reconstrueren wie zijn moeder werkelijk was."}, {"author": "Palmen, Connie", "title": "Lucifer", "date_display": "18-10-08", "date_iso": "2008-10-18", "year": 2008, "decade": "2000s", "summary": "Na de mysterieuze dood van een aantrekkelijke, onconventionele fotografe proberen de mensen die haar kenden te reconstrueren wie ze werkelijk was."}, {"author": "Pamuk, Orhan", "title": "Sneeuw", "date_display": "02-09-04", "date_iso": "2004-09-02", "year": 2004, "decade": "2000s", "summary": "Een dichter reist naar een geïsoleerd Turks grensstadje, waar politiek, geloof en een sneeuwstorm hem meesleuren in een web van intrige en liefde."}, {"author": "Paustovski, Konstantin", "title": "Onrustige jeugd", "date_display": "10-07-01", "date_iso": "2001-07-10", "year": 2001, "decade": "2000s", "summary": "In dit memoiredeel blikt de auteur terug op zijn rusteloze jeugd in het door revolutie en oorlog verscheurde Rusland van het begin van de twintigste eeuw."}, {"author": "Peeters, Christoph", "title": "Dood in Berlijn (Barbara)", "date_display": "08-04-26", "date_iso": "2026-04-08", "year": 2026, "decade": "2020s", "summary": "Bij de opening van een kunstexpositie in Berlijn raakt een familie verscheurd door de opkomst van extreemrechts en de oorlog in Oekraïne."}, {"author": "Peeters, Hagar", "title": "Malva", "date_display": "26-04-18", "date_iso": "2018-04-26", "year": 2018, "decade": "2010s", "summary": "De nooit geboren of vergeten dochter van dichter Pablo Neruda krijgt postuum een stem, en vertelt vanuit het hiernamaals over haar vader en haar eigen onzichtbare bestaan."}, {"author": "Peper, Rascha", "title": "Het Spaanse hondje", "date_display": "27-04-98", "date_iso": "1998-04-27", "year": 1998, "decade": "1990s", "summary": "Als hun moeder overlijdt, laat een van drie broers op een dag zomaar alles achter zich, en blijft de familie verweesd en zoekend achter."}, {"author": "Pfeijffer, Ilja", "title": "La Superba", "date_display": "15-04-15", "date_iso": "2015-04-15", "year": 2015, "decade": "2010s", "summary": "Een schrijver trekt door de sfeervolle, verloederde straten van Genua en ontmoet er een bonte stoet migranten, kunstenaars en verloren zielen."}, {"author": "Proust, Marcel", "title": "Een liefde van Swann", "date_display": "18-11-04", "date_iso": "2004-11-18", "year": 2004, "decade": "2000s", "summary": "Een welgestelde man raakt geobsedeerd door een jaloerse, kwellende liefde voor een vrouw die niet bij hem past, in dit beroemde deel van Prousts grote romancyclus."}, {"author": "Rahimi, Atiq", "title": "Steen van geduld (Frank P)", "date_display": "03-11-21", "date_iso": "2021-11-03", "year": 2021, "decade": "2020s", "summary": "Een Afghaanse vrouw waakt bij haar comateuze man en vertelt hem, omdat hij toch niet kan reageren, eindelijk alles wat ze nooit heeft durven zeggen."}, {"author": "Rand, Ayn", "title": "De eeuwige bron", "date_display": "10-09-08", "date_iso": "2008-09-10", "year": 2008, "decade": "2000s", "summary": "Een compromisloze architect weigert zijn artistieke visie ook maar iets te laten verwateren voor commercieel succes of publieke goedkeuring."}, {"author": "Reve, Gerard van het", "title": "De avonden", "date_display": "11-07-07", "date_iso": "2007-07-11", "year": 2007, "decade": "2000s", "summary": "Een verveelde, cynische jongeman doorstaat de laatste tien dagen van het jaar in het benauwde ouderlijk huis, op zoek naar iets van betekenis in een leeg bestaan."}, {"author": "Reybrouck van, David", "title": "Congo", "date_display": "10-09-13", "date_iso": "2013-09-10", "year": 2013, "decade": "2010s", "summary": "Een uitgebreide, veelstemmige geschiedenis van Congo, van precoloniale tijden tot heden, verteld aan de hand van ooggetuigen en historische bronnen."}, {"author": "Reybrouck van, David", "title": "Slagschaduw", "date_display": null, "date_iso": null, "year": null, "decade": "onbekend", "summary": "Een essayistische zoektocht naar een verzwegen bloedbad uit de Congolese koloniale geschiedenis en de manier waarop dat verleden nog altijd doorwerkt."}, {"author": "Robinson, Marilynne", "title": "Lila", "date_display": "18-05-16", "date_iso": "2016-05-18", "year": 2016, "decade": "2010s", "summary": "Een zwervende, wantrouwige vrouw trouwt met een oudere dominee in een klein Amerikaans stadje en probeert, ondanks haar ruige verleden, een plek voor zichzelf te vinden."}, {"author": "Rooney, Sally", "title": "Intermezzo (Marijke)", "date_display": "24-04-25", "date_iso": "2025-04-24", "year": 2025, "decade": "2020s", "summary": "Twee sterk verschillende broers proberen na de dood van hun vader grip te krijgen op rouw, liefde en hun onderlinge band."}, {"author": "Rosenboom, Thomas", "title": "Publieke werken", "date_display": null, "date_iso": null, "year": null, "decade": "onbekend", "summary": "Een ambitieuze Amsterdamse kapper droomt aan het einde van de negentiende eeuw van een grootse haven, en offert daar alles voor op wat hij liefheeft."}, {"author": "Rosenboom, Thomas", "title": "De rode loper", "date_display": "22-04-13", "date_iso": "2013-04-22", "year": 2013, "decade": "2010s", "summary": "Een eigenzinnige historische roman van Thomas Rosenboom, met zijn kenmerkende gevoel voor de taal en zeden van een voorbije tijd."}, {"author": "Roth, Philip", "title": "De menselijke smet", "date_display": "11-12-01", "date_iso": "2001-12-11", "year": 2001, "decade": "2000s", "summary": "Een gerespecteerde hoogleraar wordt ten val gebracht door een vermeend racistische opmerking, terwijl hij al zijn hele leven een veel dieper geheim verbergt."}, {"author": "Roth, Philip", "title": "Exit geest", "date_display": "11-10-07", "date_iso": "2007-10-11", "year": 2007, "decade": "2000s", "summary": "Een oude, teruggetrokken schrijver keert terug naar New York voor een medische behandeling en raakt verstrikt in de literaire wereld en politiek van na 9/11."}, {"author": "Ruebsamen, Helga", "title": "Het lied van de waarheid", "date_display": "21-01-98", "date_iso": "1998-01-21", "year": 1998, "decade": "1990s", "summary": "Een fantasierijk meisje groeit op in het paradijselijke Nederlands-Indië, tot haar familie vlak voor de Tweede Wereldoorlog naar het kille, oorlogsdreigende Nederland verhuist."}, {"author": "Rushdie, Salman", "title": "De laatste zucht van de Moor", "date_display": "23-02-99", "date_iso": "1999-02-23", "year": 1999, "decade": "1990s", "summary": "Vier generaties van een Indiase familie van kunstenaars en handelaars worden verteld door hun laatste telg, in een weelderige geschiedenis vol magie en vervolging."}, {"author": "Sallinger J.D.", "title": "De vanger in het koren", "date_display": "08-11-06", "date_iso": "2006-11-08", "year": 2006, "decade": "2000s", "summary": "Een opstandige tiener zwerft na zijn schoolverwijdering door New York en worstelt met de 'hypocrisie' van de volwassen wereld om hem heen."}, {"author": "Salter, James", "title": "All that is", "date_display": "04-11-14", "date_iso": "2014-11-04", "year": 2014, "decade": "2010s", "summary": "Een Amerikaanse marineveteraan bouwt na de Tweede Wereldoorlog een carrière op als literair redacteur, terwijl hij door de decennia heen op zoek blijft naar blijvende liefde."}, {"author": "Saramago, José", "title": "Het evangelie volgens Jezus Christus", "date_display": "22-09-99", "date_iso": "1999-09-22", "year": 1999, "decade": "1990s", "summary": "Een literaire, aardse herschrijving van het leven van Jezus, die worstelt met zijn menselijke twijfels naast zijn goddelijke bestemming."}, {"author": "Schädlich, Suzanne", "title": "Mijn oom, vriend en verrader", "date_display": "13-01-10", "date_iso": "2010-01-13", "year": 2010, "decade": "2010s", "summary": "De auteur ontdekt dat haar geliefde oom, bij wie het gezin op bezoek ging tijdens hun vlucht uit Oost-Duitsland, jarenlang als Stasi-informant over hen heeft gerapporteerd."}, {"author": "Schilperoord Inge", "title": "Muidhond", "date_display": "10-11-16", "date_iso": "2016-11-10", "year": 2016, "decade": "2010s", "summary": "Een man met pedofiele gevoelens probeert na zijn vrijlating uit de gevangenis koste wat het kost zijn verlangens onder controle te houden."}, {"author": "Schlink, Bernhard", "title": "De voorlezer", "date_display": "31-08-00", "date_iso": "2000-08-31", "year": 2000, "decade": "2000s", "summary": "Een jonge man heeft een intense affaire met een oudere vrouw, en ontdekt jaren later als rechtenstudent haar duistere oorlogsverleden."}, {"author": "Schlink, Bernhard", "title": "De vrouw op de trap (Frank B)", "date_display": "21-09-21", "date_iso": "2021-09-21", "year": 2021, "decade": "2020s", "summary": "Een jurist ontmoet decennia later de vrouw terug die ooit centraal stond in een geheimzinnig schilderij en een oud driehoeksverhaal."}, {"author": "Schoenmakers M.M.", "title": "De wolkenridder", "date_display": "02-07-15", "date_iso": "2015-07-02", "year": 2015, "decade": "2010s", "summary": "Een beeldende, associatieve roman waarin de auteur de grenzen tussen droom en werkelijkheid laat vervagen."}, {"author": "Schröder, Allard", "title": "De Hydrograaf", "date_display": "19-02-04", "date_iso": "2004-02-19", "year": 2004, "decade": "2000s", "summary": "Op een achttiende-eeuws zeilschip probeert een koppige cartograaf de wereld nauwkeurig in kaart te brengen, terwijl aan boord de verhoudingen verharden."}, {"author": "Seethaler, Robert", "title": "De Weense sigarenboer", "date_display": "28-05-19", "date_iso": "2019-05-28", "year": 2019, "decade": "2010s", "summary": "Een jonge sigarenwinkelbediende in het Wenen van de jaren dertig raakt bevriend met Sigmund Freud, terwijl de nazi's steeds dichterbij komen."}, {"author": "Shafak, Elif", "title": "Het luizenpaleis", "date_display": "13-05-14", "date_iso": "2014-05-13", "year": 2014, "decade": "2010s", "summary": "In een vervallen appartementengebouw in Istanbul leven tien totaal verschillende gezinnen langs elkaar heen, in een kleurrijk mozaïek van de moderne Turkse samenleving."}, {"author": "Shalev, Meir", "title": "De fontanel", "date_display": "04-12-03", "date_iso": "2003-12-04", "year": 2003, "decade": "2000s", "summary": "Een jongen met een opvallend gevoelige schedelfontanel en bijzondere zintuiglijke gaven beleeft een levenslange liefde met de vrouw die hem als kind uit een brand redde."}, {"author": "Shamsie, Kamila", "title": "Verbrande schaduwen", "date_display": "23-10-12", "date_iso": "2012-10-23", "year": 2012, "decade": "2010s", "summary": "De levens van twee families, verbonden via de atoombom op Nagasaki en de deling van India, blijven decennialang met elkaar verweven door oorlog en verlies."}, {"author": "Shields, Carlo", "title": "De stenen dagboeken", "date_display": "22-09-14", "date_iso": "2014-09-22", "year": 2014, "decade": "2010s", "summary": "Het alledaagse leven van een gewone vrouw wordt, van geboorte tot dood, verteld als een schijnbaar objectieve biografie vol persoonlijke gemistte kansen en stiltes."}, {"author": "Spit, Lize", "title": "Het smelt", "date_display": "09-05-17", "date_iso": "2017-05-09", "year": 2017, "decade": "2010s", "summary": "Een jonge vrouw keert terug naar het dorp van haar jeugd met een groot blok ijs, vastbesloten om eindelijk af te rekenen met een traumatische zomer van vroeger."}, {"author": "Steenberge, Kris van", "title": "Blindelings (Leon)", "date_display": "13-12-21", "date_iso": "2021-12-13", "year": 2021, "decade": "2020s", "summary": "Op één beladen vrijdag komen een ambitieuze moeder, een teruggetrokken vader en hun blind geworden zoon onherroepelijk in botsing met hun eigen verleden."}, {"author": "Stefánsson, Jón Kalman", "title": "Het verdriet van de engelen (Frank B)", "date_display": "11-03-25", "date_iso": "2025-03-11", "year": 2025, "decade": "2020s", "summary": "Een IJslandse postbode waagt zich door een dodelijke sneeuwstorm om boeken te bezorgen bij afgelegen dorpen."}, {"author": "Szabo, Magda", "title": "De deur", "date_display": "24-03-05", "date_iso": "2005-03-24", "year": 2005, "decade": "2000s", "summary": "Een schrijfster en haar norse, ondoorgrondelijke huishoudster bouwen over de jaren een complexe, aan liefde grenzende afhankelijkheidsrelatie op."}, {"author": "Szerb, Antal", "title": "Reis bij maanlicht", "date_display": "11-04-07", "date_iso": "2007-04-11", "year": 2007, "decade": "2000s", "summary": "Tijdens zijn huwelijksreis in Italië mist een man opzettelijk zijn trein en begint aan een innerlijke reis langs de spookbeelden van zijn jeugd en een obsessieve vriendschap."}, {"author": "Tartt, Donna", "title": "De verborgen geschiedenis", "date_display": null, "date_iso": null, "year": null, "decade": "onbekend", "summary": "Een groep bevoorrechte klassieke-talenstudenten pleegt tijdens een bacchanaal een moord, waarna hun hechte vriendschap van binnenuit begint te rotten."}, {"author": "Terrin, Peter", "title": "Post mortem", "date_display": "06-08-13", "date_iso": "2013-08-06", "year": 2013, "decade": "2010s", "summary": "Een beklemmende, raadselachtige roman van Peter Terrin, waarin een schijnbaar veilige orde langzaam desintegreert onder de druk van angst en controle."}, {"author": "Tokarczuk, Olga", "title": "Jaag je ploeg over de botten van de doden (Frank B)", "date_display": "13-11-23", "date_iso": "2023-11-13", "year": 2023, "decade": "2020s", "summary": "Een eigenzinnige oudere vrouw in een afgelegen Pools grensdorp raakt verwikkeld in de onopgeloste, mysterieuze sterfgevallen van plaatselijke jagers."}, {"author": "Tomasi di Lampedusa", "title": "De tijgerkat", "date_display": "06-11-01", "date_iso": "2001-11-06", "year": 2001, "decade": "2000s", "summary": "Een Siciliaanse prins ziet tijdens de eenwording van Italië zijn aristocratische wereld en manier van leven onherroepelijk verdwijnen."}, {"author": "Tsukiyama, Gail", "title": "De tuin van de Samoerai", "date_display": "10-01-00", "date_iso": "2000-01-10", "year": 2000, "decade": "2000s", "summary": "Een jonge Chinees-Japanse schilder herstelt in een afgelegen Japans kustdorp en sluit vriendschap met de teruggetrokken tuinman van het huis, tegen de achtergrond van een naderende oorlog."}, {"author": "Tyler, Ann", "title": "De toevallige toerist", "date_display": "19-09-06", "date_iso": "2006-09-19", "year": 2006, "decade": "2000s", "summary": "Een reisgidsschrijver die het liefst alles bij het oude laat, wordt na de dood van zijn zoon en het uiteenvallen van zijn huwelijk gedwongen zijn leven opnieuw vorm te geven."}, {"author": "Vestdijk, Simon", "title": "De kelner en de levende", "date_display": null, "date_iso": null, "year": null, "decade": "onbekend", "summary": "Een dienstbare, onderdanige kelner ziet zich in deze klassieke Nederlandse roman geconfronteerd met de dood en de zin van zijn bescheiden bestaan."}, {"author": "Verhelst, Peter", "title": "Tongkat", "date_display": "07-11-02", "date_iso": "2002-11-07", "year": 2002, "decade": "2000s", "summary": "In een verhalenbordeel vol mythologische en surrealistische figuren ontrafelt zich, vanuit steeds wisselende perspectieven, de moord op een jongen en de revolutie die daarop volgt."}, {"author": "Veronesi Sandro", "title": "In de ban van mijn vader", "date_display": "30-06-03", "date_iso": "2003-06-30", "year": 2003, "decade": "2000s", "summary": "Een zoon reconstrueert, jaren na diens dood, het ondoorgrondelijke leven en de nalatenschap van zijn veeleisende vader."}, {"author": "Vogels, Frida", "title": "De harde kern", "date_display": "16-03-98", "date_iso": "1998-03-16", "year": 1998, "decade": "1990s", "summary": "Een intiem, ongefilterd dagboekportret van een schrijfster die openhartig verslag doet van haar dagelijks leven, liefdes en literaire ambities."}, {"author": "Voskuil, J.J.", "title": "De moeder van Nicoline", "date_display": "06-05-99", "date_iso": "1999-05-06", "year": 1999, "decade": "1990s", "summary": "In korte, alledaagse scènes wordt het langzame verval van een sterke, humorvolle schoonmoeder door dementie gevolgd, tot aan haar dood."}, {"author": "Voskuil, J.J.", "title": "De dood van Maarten Koning", "date_display": "15-03-01", "date_iso": "2001-03-15", "year": 2001, "decade": "2000s", "summary": "In het laatste deel van de kantoorroman-cyclus moet de net gepensioneerde hoofdpersoon een nieuw evenwicht vinden nu zijn werkzame leven voorbij is."}, {"author": "Vries, Theun de", "title": "Sla de wolven, herder", "date_display": "05-03-09", "date_iso": "2009-03-05", "year": 2009, "decade": "2000s", "summary": "Een historische roman over gewone mensen die in een tijd van geloofsvervolging en onderdrukking moeten kiezen tussen aanpassing en verzet."}, {"author": "Walschap, Gerard", "title": "Houtekiet", "date_display": "08-04-99", "date_iso": "1999-04-08", "year": 1999, "decade": "1990s", "summary": "Een oorspronkelijke levensgenieter sticht op eigen kracht een nederzetting in de wildernis, en botst met de regels en moraal van de beschaving die hem inhaalt."}, {"author": "Waterdrinker, Pieter", "title": "Tsjaikovskistraat 40", "date_display": "29-01-19", "date_iso": "2019-01-29", "year": 2019, "decade": "2010s", "summary": "Vanuit zijn huis in Sint-Petersburg verweeft de auteur zijn eigen avontuurlijke Russische levensverhaal met de geschiedenis van de Russische Revolutie."}, {"author": "Weijers, Nina", "title": "De consequenties", "date_display": "03-03-15", "date_iso": "2015-03-03", "year": 2015, "decade": "2010s", "summary": "Een kunstenares met een dwangmatige behoefte aan orde en controle ziet haar zorgvuldig opgebouwde leven en identiteit langzaam afbrokkelen."}, {"author": "Wells, Benedict", "title": "Het einde van de eenzaamheid", "date_display": "17-10-17", "date_iso": "2017-10-17", "year": 2017, "decade": "2010s", "summary": "Na de dood van hun ouders groeien drie kinderen in een internaat sterk naar elkaar toe, tot het leven hen als volwassenen weer uit elkaar drijft."}, {"author": "Werfel, Franz", "title": "Het bleekblauwe handschrift van een vrouw", "date_display": "29-11-17", "date_iso": "2017-11-29", "year": 2017, "decade": "2010s", "summary": "Een gevierde componist in het Wenen van de jaren dertig wordt geconfronteerd met een brief uit zijn verleden, van een vrouw wier lot hij nooit heeft willen kennen."}, {"author": "Wieringa, Tommy", "title": "De dood van Murat Idrissi", "date_display": "28-10-19", "date_iso": "2019-10-28", "year": 2019, "decade": "2010s", "summary": "Twee Marokkaans-Nederlandse vriendinnen op vakantie in Marokko raken zonder het te beseffen verwikkeld in mensensmokkel, met fatale gevolgen."}, {"author": "Williams, John", "title": "Butcher's crossing", "date_display": "07-04-14", "date_iso": "2014-04-07", "year": 2014, "decade": "2010s", "summary": "Een jonge student trekt in de negentiende eeuw mee met een jacht op bizons in het Amerikaanse Westen, en ziet zijn romantische ideeën over de wildernis genadeloos aan diggelen vallen."}, {"author": "Winter, Leon de", "title": "Het recht op terugkeer", "date_display": "22-04-09", "date_iso": "2009-04-22", "year": 2009, "decade": "2000s", "summary": "In een nabije toekomst waarin het jodendom dreigt te verdwijnen, zoekt een schrijver naar een uitweg voor de continuïteit van zijn volk en geloof."}, {"author": "Yalom, Irvin D.", "title": "Het raadsel Spinoza", "date_display": "05-09-12", "date_iso": "2012-09-05", "year": 2012, "decade": "2010s", "summary": "In een dubbelverhaal onderzoekt een psychiater het leven van filosoof Spinoza naast dat van een hedendaagse neonazi die geobsedeerd is door Spinoza's joodse identiteit."}, {"author": "Yalom, Irvin D.", "title": "Nietzsches tranen", "date_display": "25-04-00", "date_iso": "2000-04-25", "year": 2000, "decade": "2000s", "summary": "In een fictieve ontmoeting behandelt een negentiende-eeuwse arts de wanhopige filosoof Nietzsche, in een tweegesprek over lijden, vriendschap en de zin van het bestaan."}, {"author": "Yehoshua, A.B.", "title": "Reis naar het einde van het millennium", "date_display": "16-05-02", "date_iso": "2002-05-16", "year": 2002, "decade": "2000s", "summary": "In het Europa van het jaar 999 reist een joodse koopman met twee vrouwen om zijn ongebruikelijke huwelijk te verdedigen tegen zijn moraliserende noordelijke handelspartners."}, {"author": "Yehoshua, A.B.", "title": "De Tunnel (Peter)", "date_display": "15-07-25", "date_iso": "2025-07-15", "year": 2025, "decade": "2020s", "summary": "Een gepensioneerde ingenieur met beginnende geheugenproblemen raakt betrokken bij de geheime aanleg van een tunnel in de woestijn."}, {"author": "Zeh, Juli", "title": "Ons soort mensen (Peter)", "date_display": "26-08-20", "date_iso": "2020-08-26", "year": 2020, "decade": "2020s", "summary": "De komst van windmolens zet een klein Duits dorp op scherp en legt oude, nooit opgeloste conflicten tussen de bewoners weer bloot."}, {"author": "Zeh, Juli", "title": "Nieuwjaar", "date_display": "02-03-22", "date_iso": "2022-03-02", "year": 2022, "decade": "2020s", "summary": "Tijdens een zware fietstocht op Lanzarote wordt een man overvallen door paniekaanvallen die hem terugvoeren naar een verdrongen, traumatische jeugdherinnering."}];
+
+  const listEl = document.getElementById('list');
+  const searchEl = document.getElementById('search');
+  const sortBtns = document.querySelectorAll('.sort-btn');
+  let currentSort = 'chrono';
+
+  function authorLastName(author){
+    return author.split(',')[0].trim();
+  }
+
+  function render(){
+    const q = searchEl.value.trim().toLowerCase();
+    let filtered = BOOKS.filter(b =>
+      b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q)
+    );
+
+    listEl.innerHTML = '';
+
+    if (filtered.length === 0){
+      const p = document.createElement('p');
+      p.className = 'empty-state';
+      p.textContent = 'Geen boeken gevonden voor deze zoekopdracht.';
+      listEl.appendChild(p);
+      return;
+    }
+
+    if (currentSort === 'chrono'){
+      filtered.sort((a, b) => {
+        const ay = a.year || 0, by = b.year || 0;
+        if (ay !== by) return by - ay;
+        return (b.date_iso || '').localeCompare(a.date_iso || '');
+      });
+
+      const groups = {};
+      const order = [];
+      filtered.forEach(b => {
+        const key = b.decade || 'onbekend';
+        if (!groups[key]){ groups[key] = []; order.push(key); }
+        groups[key].push(b);
+      });
+
+      order.forEach(key => {
+        // Decennium-labels weggelaten (het jaartal staat al bij elk boek); alleen "Datum onbekend" blijft
+        if (key === 'onbekend'){
+          const label = document.createElement('div');
+          label.className = 'decade-label decade-' + key;
+          label.textContent = 'Datum onbekend';
+          listEl.appendChild(label);
+        }
+
+        const frag = document.createDocumentFragment();
+        groups[key].forEach(b => frag.appendChild(bookRow(b)));
+        listEl.appendChild(frag);
+      });
+
+    } else {
+      filtered.sort((a, b) => authorLastName(a.author).localeCompare(authorLastName(b.author), 'nl'));
+
+      const groups = {};
+      const order = [];
+      filtered.forEach(b => {
+        const letter = authorLastName(b.author).charAt(0).toUpperCase();
+        if (!groups[letter]){ groups[letter] = []; order.push(letter); }
+        groups[letter].push(b);
+      });
+      order.sort();
+
+      order.forEach(letter => {
+        const label = document.createElement('div');
+        label.className = 'decade-label';
+        label.textContent = letter;
+        listEl.appendChild(label);
+
+        const frag = document.createDocumentFragment();
+        groups[letter].forEach(b => frag.appendChild(bookRow(b)));
+        listEl.appendChild(frag);
+      });
+    }
+  }
+
+  const MAANDEN = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
+  const MAANDEN_VOL = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+
+  function bookRow(b){
+    const row = document.createElement('div');
+    row.className = 'book-row';
+
+    const date = document.createElement('span');
+    date.className = 'book-date';
+    if (b.date_iso){
+      const [y, m, d] = b.date_iso.split('-').map(Number);
+      const dm = document.createElement('span');
+      dm.className = 'book-date-dm';
+      dm.textContent = d + ' ' + MAANDEN[m - 1];
+      const yr = document.createElement('span');
+      yr.className = 'book-date-y';
+      yr.textContent = y;
+      date.appendChild(dm);
+      date.appendChild(yr);
+      date.title = d + ' ' + MAANDEN_VOL[m - 1] + ' ' + y;
+    } else {
+      date.textContent = b.year ? b.year : '—';
+    }
+
+    const titleWrap = document.createElement('div');
+    titleWrap.className = 'book-title-wrap';
+
+    const title = document.createElement('span');
+    title.className = 'book-title';
+    title.textContent = b.title;
+    titleWrap.appendChild(title);
+
+    if (b.summary){
+      const summary = document.createElement('span');
+      summary.className = 'book-summary';
+      summary.textContent = b.summary;
+      titleWrap.appendChild(summary);
+    }
+
+    const author = document.createElement('span');
+    author.className = 'book-author';
+    author.textContent = b.author;
+
+    row.appendChild(date);
+    row.appendChild(titleWrap);
+    row.appendChild(author);
+    return row;
+  }
+
+  searchEl.addEventListener('input', render);
+  sortBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentSort = btn.dataset.sort;
+      sortBtns.forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+      render();
+    });
+  });
+
+  render();
+
+</script>
+
+</body>
+</html>
