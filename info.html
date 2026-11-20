@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Over ons — Leesobsessie</title>
+<meta name="description" content="Informatie over leesclub Leesobsessie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FAFAFC;
+    --surface: #FFFFFF;
+    --text: #241F3D;
+    --text-dim: #6E6A85;
+    --pink: #FF5D8F;
+    --pink-deep: #E0316B;
+    --teal: #00BFA6;
+    --teal-deep: #00967F;
+    --yellow: #FFC145;
+    --yellow-deep: #B9860A;
+    --purple: #7C6FF0;
+    --purple-deep: #5B4FD6;
+    --blue: #4D8AF0;
+    --pink-soft: #FFE1EC;
+    --teal-soft: #D8F7F1;
+    --yellow-soft: #FFF3D6;
+    --purple-soft: #EAE7FF;
+    --blue-soft: #E3EEFF;
+    --grey-soft: #F1F1F4;
+    --border: rgba(36,31,61,0.09);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  a { color: inherit; }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Header ---------- */
+  header.site{
+    padding: 48px 0 24px;
+  }
+  header.site .wrap{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .brand h1{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 2.7rem);
+    margin: 0;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .brand p{
+    display: inline-block;
+    margin: 8px 0 0;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--purple-deep);
+    background: var(--purple-soft);
+    padding: 5px 14px;
+    border-radius: 999px;
+  }
+  nav.site-nav{
+    display:flex;
+    gap: 8px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  nav.site-nav a{
+    text-decoration: none;
+    color: var(--text-dim);
+    padding: 9px 16px;
+    border-radius: 999px;
+    transition: background 0.18s, color 0.18s;
+  }
+  nav.site-nav a:hover, nav.site-nav a:focus-visible{
+    color: var(--pink-deep);
+    background: var(--pink-soft);
+  }
+
+  /* ---------- Hero ---------- */
+  section.hero{
+    padding: 32px 0 40px;
+  }
+  .hero-label{
+    display: inline-block;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #fff;
+    background: linear-gradient(100deg, var(--pink), var(--purple));
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin: 0 0 18px;
+  }
+
+  .card{
+    background: var(--surface);
+    color: var(--text);
+    border-radius: 28px;
+    padding: 32px 32px 30px;
+    box-shadow: 0 20px 45px -20px rgba(124,111,240,0.35), 0 2px 10px rgba(36,31,61,0.06);
+    position: relative;
+    transform: rotate(-0.8deg);
+    opacity: 0;
+    animation: cardIn 0.6s cubic-bezier(.2,.7,.3,1) 0.1s forwards;
+  }
+  @keyframes cardIn{
+    from{ opacity: 0; transform: rotate(-2.5deg) translateY(14px) scale(0.98); }
+    to{ opacity: 1; transform: rotate(-0.8deg) translateY(0) scale(1); }
+  }
+
+  .card-heading{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .card h2{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 4.2vw, 2.2rem);
+    margin: 0 0 6px;
+    line-height: 1.15;
+    color: var(--text);
+  }
+  .card .by{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  .cover-wrap{
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .card-cover{
+    width: 100px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 14px 26px -10px rgba(36,31,61,0.35);
+    transform: rotate(3deg);
+    display: block;
+  }
+  .cover-badge{
+    position: absolute;
+    top: -10px;
+    left: -14px;
+    background: var(--pink);
+    color: #fff;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.68rem;
+    padding: 5px 11px;
+    border-radius: 999px;
+    transform: rotate(-8deg);
+    box-shadow: 0 6px 14px rgba(255,93,143,0.45);
+    white-space: nowrap;
+  }
+
+  .card-chips{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 24px 0 0;
+    padding: 0;
+  }
+  .card-chips li{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 9px 16px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+  }
+  .card-chips .chip-label{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.66rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+  .card-chips .chip-value{
+    font-weight: 600;
+  }
+  .chip-date{ background: var(--pink-soft); color: var(--pink-deep); }
+  .chip-location{ background: var(--teal-soft); color: var(--teal-deep); }
+  .chip-host{ background: var(--purple-soft); color: var(--purple-deep); }
+  .chip-status{ background: var(--yellow-soft); color: var(--yellow-deep); }
+
+  /* ---------- Intro ---------- */
+  section.intro{
+    padding: 8px 0 52px;
+  }
+  section.intro p{
+    max-width: 62ch;
+    color: var(--text-dim);
+    font-size: 1.05rem;
+  }
+  section.intro strong{
+    color: var(--text);
+    font-weight: 700;
+    background: var(--yellow-soft);
+    padding: 2px 8px;
+    border-radius: 8px;
+  }
+
+  /* ---------- Archive ---------- */
+  section.archive{
+    padding: 12px 0 90px;
+  }
+  .archive-head{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    margin-bottom: 6px;
+  }
+  .archive-head h3{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin: 0;
+    color: var(--text);
+  }
+  .archive-stats{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: var(--purple-deep);
+    background: var(--purple-soft);
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+
+  .controls{
+    display:flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 22px 0 30px;
+  }
+  .controls input[type="search"]{
+    flex: 1 1 220px;
+    min-width: 160px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 14px rgba(36,31,61,0.05);
+  }
+  .controls input[type="search"]::placeholder{ color: #A6A2B8; }
+  .controls input[type="search"]:focus-visible{
+    outline: none;
+    border-color: var(--pink);
+    box-shadow: 0 0 0 3px var(--pink-soft);
+  }
+  .sort-group{
+    display:flex;
+    gap: 4px;
+    background: var(--grey-soft);
+    padding: 4px;
+    border-radius: 999px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .sort-btn{
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 9px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+  }
+  .sort-btn:hover{ color: var(--text); }
+  .sort-btn[aria-pressed="true"]{
+    background: linear-gradient(100deg, var(--pink), var(--purple));
+    color: #fff;
+  }
+  .sort-btn:focus-visible{ outline: 2px solid var(--purple); outline-offset: 2px; }
+
+  .decade-label{
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 18px;
+    border-radius: 999px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    margin: 28px 0 12px;
+    background: var(--grey-soft);
+    color: var(--text-dim);
+  }
+  .decade-label.decade-1990s{ background: var(--purple-soft); color: var(--purple-deep); }
+  .decade-label.decade-2000s{ background: var(--blue-soft); color: #2C5FC7; }
+  .decade-label.decade-2010s{ background: var(--teal-soft); color: var(--teal-deep); }
+  .decade-label.decade-2020s{ background: var(--pink-soft); color: var(--pink-deep); }
+  .decade-label.decade-onbekend{ background: var(--grey-soft); color: #8A8698; }
+
+  .book-row{
+    display:grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 4px 18px;
+    align-items: baseline;
+    padding: 12px 14px;
+    border-radius: 14px;
+    transition: background 0.15s;
+  }
+  .book-row:hover{ background: var(--grey-soft); }
+  .book-date{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--purple-deep);
+  }
+  .book-title{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text);
+  }
+  .book-author{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    text-align: right;
+    white-space: nowrap;
+  }
+  @media (max-width: 560px){
+    .book-row{ grid-template-columns: 1fr; gap: 2px; padding: 12px 10px; }
+    .book-author{ text-align: left; }
+    .book-date{ order: -1; }
+  }
+
+  .empty-state{
+    padding: 30px 4px;
+    color: var(--text-dim);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding: 24px 0 48px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+
+  /* ---------- Info page content ---------- */
+  section.page-content{
+    padding: 8px 0 90px;
+  }
+  .page-title{
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    margin: 0 0 28px;
+    color: var(--text);
+  }
+  .content-card{
+    background: var(--surface);
+    border-radius: 24px;
+    padding: 32px 36px;
+    box-shadow: 0 16px 36px -20px rgba(124,111,240,0.3), 0 2px 10px rgba(36,31,61,0.06);
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .content-card p{ margin: 0 0 16px; }
+  .content-card p:last-child{ margin-bottom: 0; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Leesobsessie</h1>
+      <p>Leesclub archief</p>
+    </div>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="index.html#archief">Archief</a>
+      <a href="info.html">Over ons</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-content">
+  <div class="wrap">
+    <h2 class="page-title">Informatie over onze leesclub</h2>
+    <div class="content-card">
+      <p>De leesclub Leesobsessie heeft een lange geschiedenis, die teruggaat tot 1991 (oprichting via de VLAM). bij de oprichting werd de leesclub gevormd door zes vrouwen en één man. De Wetten van Connie Palmen werd als eerste boek gelezen.
+Midden jaren 90 werd de huidige naam Leesobsessie geintroduceerd. Vanaf 1997 is het overzicht van gelezen boeken beschikbaar. 
+We zijn momenteel met 10 leden, 5 vrouwen en 5 mannen. Een gemengd gezelschap qua achtergrond, leeservaring en voorkeuren voor soorten boeken.
+Alle leden hebben een lijstje met boeken die ze willen inbrengen voor bespreking. We hebben op dit moment de afspraak dat je alleen een door jou gelezen boek op jouw lijstje mag zetten. Uit die lijstjes kiezen we gezamenlijk de boeken die we gaan lezen en bespreken. Doorgaans bereidt degene die het gekozen boek op zijn lijste heeft staan de bespreking voor. Hoe we de bespreking vormgeven is afhankelijk van degene die de bespreking heeft voorbereid en kan per keer sterk verschillen. We houden de bespreking in de avonden om beurten bij leden thuis. Eenmaal per jaar worden we door een van de leden getracteerd op een literaire lunch of diner. 
+
+ 
+
+</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Leesobsessie · 206 boeken sinds 1997 · dit archief wordt bijgewerkt na elke bespreking
+  </div>
+</footer>
+
+</body>
+</html>
